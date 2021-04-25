@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,7 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/{page}', 'AdminController@index');
+Route::resource('invoices', 'InvoiceController');
 
+Route::get('/{page}', 'AdminController@index');
 
