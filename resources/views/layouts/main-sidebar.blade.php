@@ -167,7 +167,7 @@
                     <span class="side-menu__label">Ajustes</span>
                     <i class="angle fe fe-chevron-down"></i></a>
                 <ul class="slide-menu">
-                    <li><a class="slide-item" href="{{ url('/' . ($page = '')) }}">Secciones</a></li>
+                    <li><a class="slide-item" href="{{ url('/' . ($page = 'sections')) }}">Secciones</a></li>
 
                     <li><a class="slide-item" href="{{ url('/' . ($page = '')) }}">Productos</a></li>
 
