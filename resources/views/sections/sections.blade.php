@@ -89,20 +89,20 @@
                         </thead>
                         <tbody>
                             <?php $i = 0; ?>
-                            @foreach ($sections as $x)
+                            @foreach ($sections as $section)
                                 <?php $i++; ?>
                                 <tr>
                                     <td>{{ $i }}</td>
-                                    <td>{{ $x->section_name }}</td>
-                                    <td>{{ $x->description }}</td>
+                                    <td>{{ $section->section_name }}</td>
+                                    <td>{{ $section->description }}</td>
                                     <td>
                                         <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
-                                            data-id="{{ $x->id }}" data-section_name="{{ $x->section_name }}"
-                                            data-description="{{ $x->description }}" data-toggle="modal"
+                                            data-id="{{ $section->id }}" data-section_name="{{ $section->section_name }}"
+                                            data-description="{{ $section->description }}" data-toggle="modal"
                                             href="#exampleModal2" title="modificar"><i class="las la-pen"></i></a>
 
                                         <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                            data-id="{{ $x->id }}" data-section_name="{{ $x->section_name }}"
+                                            data-id="{{ $section->id }}" data-section_name="{{ $section->section_name }}"
                                             data-toggle="modal" href="#modaldemo9" title="eliminar"><i
                                                 class="las la-trash"></i></a>
                                     </td>
