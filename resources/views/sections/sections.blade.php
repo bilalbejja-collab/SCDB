@@ -24,8 +24,8 @@
 </div>
 <!-- breadcrumb -->
 @endsection
-@section('content')
 
+@section('content')
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -65,6 +65,7 @@
 
 <!-- row -->
 <div class="row">
+
     <div class="col-xl-12">
         <div class="card mg-b-20">
             <div class="card-header pb-0">
@@ -72,6 +73,7 @@
                     <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale"
                         data-toggle="modal" href="#modaldemo8">Agregar sección</a>
                 </div>
+
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -86,27 +88,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php
-                                $i = 0;
-                            @endphp
-                            @foreach ($sections as $section)
+                            <?php $i = 0; ?>
+                            @foreach ($sections as $x)
                                 <?php $i++; ?>
                                 <tr>
                                     <td>{{ $i }}</td>
-                                    <td>{{ $section->section_name }}</td>
-                                    <td>{{ $section->description }}</td>
+                                    <td>{{ $x->section_name }}</td>
+                                    <td>{{ $x->description }}</td>
                                     <td>
                                         <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
-                                            data-id="{{ $section->id }}"
-                                            data-section_name="{{ $section->section_name }}"
-                                            data-description="{{ $section->description }}" data-toggle="modal"
-                                            href="#exampleModal2" title="Modificar sección"><i
-                                                class="las la-pen"></i></a>
+                                            data-id="{{ $x->id }}" data-section_name="{{ $x->section_name }}"
+                                            data-description="{{ $x->description }}" data-toggle="modal"
+                                            href="#exampleModal2" title="modificar"><i class="las la-pen"></i></a>
 
                                         <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                            data-id="{{ $section->id }}"
-                                            data-section_name="{{ $section->section_name }}" data-toggle="modal"
-                                            href="#modaldemo9" title="Eliminar sección"><i class="las la-trash"></i></a>
+                                            data-id="{{ $x->id }}" data-section_name="{{ $x->section_name }}"
+                                            data-toggle="modal" href="#modaldemo9" title="eliminar"><i
+                                                class="las la-trash"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -117,7 +115,7 @@
         </div>
     </div>
 
-    {{-- Agregar sección --}}
+
     <div class="modal" id="modaldemo8">
         <div class="modal-dialog" role="document">
             <div class="modal-content modal-content-demo">
@@ -147,9 +145,10 @@
                 </div>
             </div>
         </div>
+        <!-- End Basic modal -->
     </div>
 
-    <!-- Modificar sección -->
+    <!-- edit -->
     <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -184,7 +183,7 @@
         </div>
     </div>
 
-    <!-- Eleminar sección -->
+    <!-- delete -->
     <div class="modal" id="modaldemo9">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content modal-content-demo">
@@ -208,9 +207,13 @@
             </form>
         </div>
     </div>
+
+
 </div>
+
 <!-- row closed -->
 </div>
+
 <!-- Container closed -->
 </div>
 <!-- main-content closed -->

@@ -27,10 +27,9 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        $validacion = $request->validate([
+        $request->validate([
             'section_name' => 'required|unique:sections|max:255',
         ], [
-
             'section_name.required' => 'Ingrese el nombre del departamento',
             'section_name.unique' => 'El nombre del departamento ya está registrado',
         ]);
