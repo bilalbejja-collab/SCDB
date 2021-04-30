@@ -28,14 +28,14 @@ class SectionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'section_name' => 'required|unique:sections|max:255',
+            'name' => 'required|unique:sections|max:255',
         ], [
-            'section_name.required' => 'Ingrese el nombre del departamento',
-            'section_name.unique' => 'El nombre del departamento ya está registrado',
+            'name.required' => 'Ingrese el nombre del departamento',
+            'name.unique' => 'El nombre del departamento ya está registrado',
         ]);
 
         section::create([
-            'section_name' => $request->section_name,
+            'name' => $request->name,
             'description' => $request->description,
             'created_by' => Auth::user()->name,
         ]);
@@ -56,17 +56,17 @@ class SectionController extends Controller
         $id = $request->id;
 
         $this->validate($request, [
-            'section_name' => 'required|max:255|unique:sections,section_name,' . $id,
+            'name' => 'required|max:255|unique:sections,name,' . $id,
             'description' => 'required',
         ], [
-            'section_name.required' => 'Ingrese el nombre del departamento',
-            'section_name.unique' => 'El nombre del departamento ya está registrado',
+            'name.required' => 'Ingrese el nombre del departamento',
+            'name.unique' => 'El nombre del departamento ya está registrado',
             'description.required' => 'Por favor ingrese la descripción',
         ]);
 
         $sections = Section::find($id);
         $sections->update([
-            'section_name' => $request->section_name,
+            'name' => $request->name,
             'description' => $request->description,
         ]);
 

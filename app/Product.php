@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Section extends Model
+class Product extends Model
 {
     protected $fillable = [
         'name',
         'description',
-        'created_by'
+        'section_id'
     ];
 }

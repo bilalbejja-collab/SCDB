@@ -169,7 +169,7 @@
                 <ul class="slide-menu">
                     <li><a class="slide-item" href="{{ url('/' . ($page = 'sections')) }}">Secciones</a></li>
 
-                    <li><a class="slide-item" href="{{ url('/' . ($page = '')) }}">Productos</a></li>
+                    <li><a class="slide-item" href="{{ url('/' . ($page = 'products')) }}">Productos</a></li>
 
                 </ul>
             </li>

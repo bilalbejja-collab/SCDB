@@ -93,16 +93,16 @@
                                 <?php $i++; ?>
                                 <tr>
                                     <td>{{ $i }}</td>
-                                    <td>{{ $section->section_name }}</td>
+                                    <td>{{ $section->name }}</td>
                                     <td>{{ $section->description }}</td>
                                     <td>
                                         <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
-                                            data-id="{{ $section->id }}" data-section_name="{{ $section->section_name }}"
+                                            data-id="{{ $section->id }}" data-name="{{ $section->name }}"
                                             data-description="{{ $section->description }}" data-toggle="modal"
                                             href="#exampleModal2" title="modificar"><i class="las la-pen"></i></a>
 
                                         <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                            data-id="{{ $section->id }}" data-section_name="{{ $section->section_name }}"
+                                            data-id="{{ $section->id }}" data-name="{{ $section->name }}"
                                             data-toggle="modal" href="#modaldemo9" title="eliminar"><i
                                                 class="las la-trash"></i></a>
                                     </td>
@@ -128,8 +128,8 @@
                         {{ csrf_field() }}
 
                         <div class="form-group">
-                            <label for="section_name">Nombre del departamento</label>
-                            <input type="text" class="form-control" id="section_name" name="section_name">
+                            <label for="name">Nombre del departamento</label>
+                            <input type="text" class="form-control" id="name" name="name">
                         </div>
 
                         <div class="form-group">
@@ -166,8 +166,8 @@
                         {{ csrf_field() }}
                         <div class="form-group">
                             <input type="hidden" name="id" id="id" value="">
-                            <label for="section_name" class="col-form-label">Nombre de Departamento:</label>
-                            <input class="form-control" name="section_name" id="section_name" type="text">
+                            <label for="name" class="col-form-label">Nombre de Departamento:</label>
+                            <input class="form-control" name="name" id="name" type="text">
                         </div>
                         <div class="form-group">
                             <label for="description" class="col-form-label">Observaciones:</label>
@@ -197,7 +197,7 @@
                     <div class="modal-body">
                         <p>¿están seguros del proceso de eliminación?</p><br>
                         <input type="hidden" name="id" id="id" value="">
-                        <input class="form-control" name="section_name" id="section_name" type="text" readonly>
+                        <input class="form-control" name="name" id="name" type="text" readonly>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -244,11 +244,11 @@
     $('#exampleModal2').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget)
         var id = button.data('id')
-        var section_name = button.data('section_name')
+        var name = button.data('name')
         var description = button.data('description')
         var modal = $(this)
         modal.find('.modal-body #id').val(id);
-        modal.find('.modal-body #section_name').val(section_name);
+        modal.find('.modal-body #name').val(name);
         modal.find('.modal-body #description').val(description);
     })
 
@@ -258,10 +258,10 @@
     $('#modaldemo9').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget)
         var id = button.data('id')
-        var section_name = button.data('section_name')
+        var name = button.data('name')
         var modal = $(this)
         modal.find('.modal-body #id').val(id);
-        modal.find('.modal-body #section_name').val(section_name);
+        modal.find('.modal-body #name').val(name);
     })
 
 </script>
