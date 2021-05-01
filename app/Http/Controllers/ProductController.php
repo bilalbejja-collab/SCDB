@@ -29,34 +29,12 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         Product::create([
-            'name' => $request->name,
+            'name' => $request->product_name,
             'section_id' => $request->section_id,
             'description' => $request->description,
         ]);
         session()->flash('Add', 'Se agregó el producto con éxito');
         return redirect('/products');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Product $product)
-    {
-        //
     }
 
     /**
@@ -66,9 +44,20 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request)
     {
-        //
+        $id = Section::where('name', $request->section_name)->first()->id;
+
+        $product = Product::findOrFail($request->product_id);
+
+        $product->update([
+            'name' => $request->product_name,
+            'description' => $request->description,
+            'section_id' => $id,
+        ]);
+
+        session()->flash('Edit', 'Se actualizó el producto correctamente');
+        return back();
     }
 
     /**
@@ -77,8 +66,11 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Request $request)
     {
-        //
+        $product = Product::findOrFail($request->product_id);
+        $product->delete();
+        session()->flash('Delete', 'Se borró el producto con éxito');
+        return back();
     }
 }

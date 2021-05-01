@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = [
-        'name',
-        'description',
-        'section_id'
-    ];
+    protected $guarded = [];
+
+    public function section(){
+        return $this->belongsTo(Section::class);
+    }
 }

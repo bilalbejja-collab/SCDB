@@ -99,11 +99,11 @@
                                         <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
                                             data-id="{{ $section->id }}" data-name="{{ $section->name }}"
                                             data-description="{{ $section->description }}" data-toggle="modal"
-                                            href="#exampleModal2" title="modificar"><i class="las la-pen"></i></a>
+                                            href="#edit_section" title="modificar"><i class="las la-pen"></i></a>
 
                                         <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
                                             data-id="{{ $section->id }}" data-name="{{ $section->name }}"
-                                            data-toggle="modal" href="#modaldemo9" title="eliminar"><i
+                                            data-toggle="modal" href="#delete_section" title="eliminar"><i
                                                 class="las la-trash"></i></a>
                                     </td>
                                 </tr>
@@ -128,7 +128,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group">
-                            <label for="name">Nombre del departamento</label>
+                            <label for="name">Nombre de la sección</label>
                             <input type="text" class="form-control" id="name" name="name">
                         </div>
 
@@ -149,7 +149,7 @@
     </div>
 
     <!-- edit -->
-    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="edit_section" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -166,7 +166,7 @@
                         {{ csrf_field() }}
                         <div class="form-group">
                             <input type="hidden" name="id" id="id" value="">
-                            <label for="name" class="col-form-label">Nombre de Departamento:</label>
+                            <label for="name" class="col-form-label">Nombre de la sección:</label>
                             <input class="form-control" name="name" id="name" type="text">
                         </div>
                         <div class="form-group">
@@ -184,11 +184,11 @@
     </div>
 
     <!-- delete -->
-    <div class="modal" id="modaldemo9">
+    <div class="modal" id="delete_section">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content modal-content-demo">
                 <div class="modal-header">
-                    <h6 class="modal-title">Eliminar departamento</h6><button aria-label="Close" class="close"
+                    <h6 class="modal-title">Eliminar la sección</h6><button aria-label="Close" class="close"
                         data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <form action="sections/destroy" method="post">
@@ -241,7 +241,7 @@
 <script src="{{ URL::asset('assets/js/modal.js') }}"></script>
 
 <script>
-    $('#exampleModal2').on('show.bs.modal', function(event) {
+    $('#edit_section').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget)
         var id = button.data('id')
         var name = button.data('name')
@@ -255,7 +255,7 @@
 </script>
 
 <script>
-    $('#modaldemo9').on('show.bs.modal', function(event) {
+    $('#delete_section').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget)
         var id = button.data('id')
         var name = button.data('name')
