@@ -29,6 +29,14 @@
         <!--div-->
         <div class="col-xl-12">
             <div class="card mg-b-20">
+                <div class="card-header pb-0">
+                    <a href="invoices/create" class="modal-effect btn btn-sm btn-primary" style="color:white"><i
+                            class="fas fa-plus"></i>&nbsp; Añadir factura</a>
+
+                    <a class="modal-effect btn btn-sm btn-primary" href="{{ url('export_invoices') }}"
+                        style="color:white"><i class="fas fa-file-download"></i>&nbsp; Exportación de Excel</a>
+                </div>
+
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="example1" class="table key-buttons text-md-nowrap">

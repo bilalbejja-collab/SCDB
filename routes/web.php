@@ -28,5 +28,7 @@ Route::resource('sections', 'SectionController');
 
 Route::resource('products', 'ProductController');
 
+Route::get('/section/{id}', 'InvoiceController@getProducts');
+
 Route::get('/{page}', 'AdminController@index');
 
