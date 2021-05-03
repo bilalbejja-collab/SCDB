@@ -101,8 +101,8 @@
                         {{-- Fila 3 --}}
                         <div class="row">
                             <div class="col">
-                                <label for="amount_commision" class="control-label">Monto de la comisión</label>
-                                <input type="text" class="form-control" id="amount_commision" name="amount_commision"
+                                <label for="amount_commission" class="control-label">Monto de la comisión</label>
+                                <input type="text" class="form-control" id="amount_commission" name="amount_commission"
                                     title="Ingrese el monto de la comisión"
                                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                     required>
@@ -242,14 +242,14 @@
          * Calcula el impuesto sobre el valor añadido y el total más los impuestos dependiendo del IVA
          */
         function myFunction() {
-            var amount_commision = parseFloat(document.getElementById("amount_commision").value);
+            var amount_commission = parseFloat(document.getElementById("amount_commission").value);
             var discount = parseFloat(document.getElementById("discount").value);
             var IVA = parseFloat(document.getElementById("IVA").value);
             var value_IVA = parseFloat(document.getElementById("value_IVA").value);
 
-            var amount_commission2 = amount_commision - discount;
+            var amount_commission2 = amount_commission - discount;
 
-            if (typeof amount_commision === 'undefined' || !amount_commision) {
+            if (typeof amount_commission === 'undefined' || !amount_commission) {
                 alert('Ingrese el monto de la comisión');
             } else {
                 var result = amount_commission2 * IVA / 100;

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Invoice;
+use App\InvoicesAttachments;
+use App\InvoicesDetails;
 use App\Section;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
@@ -16,7 +19,8 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        return view('invoices.invoices');
+        $invoices = Invoice::all();
+        return view('invoices.invoices', compact('invoices'));
     }
 
     /**
@@ -39,57 +43,52 @@ class InvoiceController extends Controller
     public function store(Request $request)
     {
         Invoice::create([
-            'number' => $request->invoice_number,
-            'date' => $request->invoice_Date,
-            'due_date' => $request->Due_date,
+            'number' => $request->number,
+            'date' => $request->date,
+            'due_date' => $request->due_date,
             'product' => $request->product,
-            'section' => $request->Section,
-            'amount_collection' => $request->Amount_collection,
-            'amount_commission' => $request->Amount_Commission,
-            'discount' => $request->Discount,
-            'value_vat' => $request->Value_VAT,
-            'rate_vat' => $request->Rate_VAT,
-            'total' => $request->Total,
+            'section_id' => $request->section,
+            'amount_collection' => $request->amount_collection,
+            'amount_commission' => $request->amount_commission,
+            'discount' => $request->discount,
+            'value_vat' => $request->value_IVA,
+            'rate_vat' => $request->IVA,
+            'total' => $request->total,
             'status' => 'no pagada',
+            // 2 -> no pagadas
             'value_status' => 2,
             'note' => $request->note,
         ]);
 
         $invoice_id = Invoice::latest()->first()->id;
-        invoices_details::create([
-            'id_Invoice' => $invoice_id,
-            'invoice_number' => $request->invoice_number,
+
+        InvoicesDetails::create([
+            'invoice_id' => $invoice_id,
+            'invoice_number' => $request->number,
             'product' => $request->product,
-            'Section' => $request->Section,
-            'Status' => 'no pagada',
-            'Value_Status' => 2,
+            'section' => $request->section,
+            'status' => 'no pagada',
+            'value_status' => 2,
             'note' => $request->note,
             'user' => (Auth::user()->name),
         ]);
 
         if ($request->hasFile('pic')) {
-
-            $invoice_id = Invoices::latest()->first()->id;
             $image = $request->file('pic');
             $file_name = $image->getClientOriginalName();
-            $invoice_number = $request->invoice_number;
+            $invoice_number = $request->number;
 
-            $attachments = new invoice_attachments();
-            $attachments->file_name = $file_name;
-            $attachments->invoice_number = $invoice_number;
-            $attachments->Created_by = Auth::user()->name;
-            $attachments->invoice_id = $invoice_id;
-            $attachments->save();
+            $attachment = new InvoicesAttachments();
+            $attachment->file_name = $file_name;
+            $attachment->invoice_number = $invoice_number;
+            $attachment->created_by = Auth::user()->name;
+            $attachment->invoice_id = $invoice_id;
+            $attachment->save();
 
-            // move pic
+            // mover la imagen
             $imageName = $request->pic->getClientOriginalName();
             $request->pic->move(public_path('Attachments/' . $invoice_number), $imageName);
         }
-
-        $user = User::get();
-        $invoices = invoices::latest()->first();
-
-        Notification::send($user, new Add_invoice_new($invoices));
 
         session()->flash('Add', 'Se agregó la factura con éxito');
         return back();

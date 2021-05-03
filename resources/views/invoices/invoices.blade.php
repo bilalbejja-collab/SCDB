@@ -58,21 +58,79 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>8123182</td>
-                                    <td>2021-04-24</td>
-                                    <td>2021-08-24</td>
-                                    <td>CC</td>
-                                    <td>Cajamar</td>
-                                    <td>1000</td>
-                                    <td>10%</td>
-                                    <td>2500</td>
-                                    <td>2650</td>
-                                    <td>No pagada</td>
-                                    <td>Todavía hay tiempo para pagar la factura</td>
-                                    <td></td>
-                                </tr>
+                                @php
+                                    $i = 0;
+                                @endphp
+                                @foreach ($invoices as $invoice)
+                                    @php
+                                        $i++;
+                                    @endphp
+                                    <tr>
+                                        <td>{{ $i }}</td>
+                                        <td>{{ $invoice->number }} </td>
+                                        <td>{{ $invoice->date }}</td>
+                                        <td>{{ $invoice->due_date }}</td>
+                                        <td>{{ $invoice->product }}</td>
+                                        <td><a
+                                                href="{{ url('InvoicesDetails') }}/{{ $invoice->id }}">{{ $invoice->section->name }}</a>
+                                        </td>
+                                        <td>{{ $invoice->discount }}</td>
+                                        <td>{{ $invoice->rate_vat }}</td>
+                                        <td>{{ $invoice->value_vat }}</td>
+                                        <td>{{ $invoice->total }}</td>
+                                        <td>
+                                            @if ($invoice->value_status == 1)
+                                                <span class="text-success">{{ $invoice->status }}</span>
+                                            @elseif($invoice->value_status == 2)
+                                                <span class="text-danger">{{ $invoice->status }}</span>
+                                            @else
+                                                <span class="text-warning">{{ $invoice->status }}</span>
+                                            @endif
+                                        </td>
+
+                                        <td>{{ $invoice->note }}</td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button aria-expanded="false" aria-haspopup="true"
+                                                    class="btn ripple btn-primary btn-sm" data-toggle="dropdown"
+                                                    type="button">Procesos<i class="fas fa-caret-down ml-1"></i></button>
+                                                <div class="dropdown-menu tx-13">
+
+                                                    <a class="dropdown-item"
+                                                        href=" {{ url('edit_invoice') }}/{{ $invoice->id }}">
+                                                        Modificar la factura
+                                                    </a>
+
+                                                    <a class="dropdown-item" href="#"
+                                                        data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
+                                                        data-target="#delete_invoice"><i
+                                                            class="text-danger fas fa-trash-alt"></i>
+                                                        &nbsp;&nbsp;Eliminar la factura
+                                                    </a>
+
+                                                    <a class="dropdown-item"
+                                                        href="{{ URL::route('status_show', [$invoice->id]) }}"><i
+                                                            class=" text-success fas fa-money-bill"></i>
+                                                        &nbsp;&nbsp; Cambiar el estado de pago
+                                                    </a>
+
+                                                    <a class="dropdown-item" href="#"
+                                                        data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
+                                                        data-target="#Transfer_invoice"><i
+                                                            class="text-warning fas fa-exchange-alt"></i>
+                                                        &nbsp;&nbsp; Transferir al archivo
+                                                    </a>
+
+                                                    <a class="dropdown-item" href="print_invoice/{{ $invoice->id }}"><i
+                                                            class="text-success fas fa-print"></i>
+                                                        &nbsp;&nbsp; Imprimir la factura
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
                             </tbody>
                         </table>
                     </div>
