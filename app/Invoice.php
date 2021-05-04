@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Invoice extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'number',
         'date',
@@ -23,4 +26,11 @@ class Invoice extends Model
         'note',
         'payment_date',
     ];
+
+    protected $date = ['deleted_at'];
+
+    public function section()
+    {
+        return $this->belongsTo('App\Section');
+    }
 }

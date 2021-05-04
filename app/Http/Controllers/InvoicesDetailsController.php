@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Invoice;
 use App\InvoicesDetails;
 use Illuminate\Http\Request;
 
@@ -57,7 +58,8 @@ class InvoicesDetailsController extends Controller
      */
     public function edit(InvoicesDetails $invoicesDetails)
     {
-        //
+        $invoices = Invoice::all();
+        return view('invoices.details_invoice', compact('invoices'));
     }
 
     /**

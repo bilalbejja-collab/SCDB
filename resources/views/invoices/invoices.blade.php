@@ -71,8 +71,9 @@
                                         <td>{{ $invoice->date }}</td>
                                         <td>{{ $invoice->due_date }}</td>
                                         <td>{{ $invoice->product }}</td>
-                                        <td><a
-                                                href="{{ url('InvoicesDetails') }}/{{ $invoice->id }}">{{ $invoice->section->name }}</a>
+                                        <td>
+                                            <a
+                                                href="{{ url('invoices-details') }}/{{ $invoice->id }}">{{ $invoice->section->name }}</a>
                                         </td>
                                         <td>{{ $invoice->discount }}</td>
                                         <td>{{ $invoice->rate_vat }}</td>
@@ -89,7 +90,7 @@
                                         </td>
 
                                         <td>{{ $invoice->note }}</td>
-                                        <td>
+                                        {{--<td>
                                             <div class="dropdown">
                                                 <button aria-expanded="false" aria-haspopup="true"
                                                     class="btn ripple btn-primary btn-sm" data-toggle="dropdown"
@@ -127,7 +128,7 @@
                                                     </a>
                                                 </div>
                                             </div>
-                                        </td>
+                                        </td>--}}
                                     </tr>
                                 @endforeach
 

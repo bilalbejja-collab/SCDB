@@ -33,3 +33,4 @@ Route::get('/section/{id}', 'InvoiceController@getProducts');
 
 Route::get('/{page}', 'AdminController@index');
 
+Route::get('/invoices-details/{id}', 'InvoicesDetailsController@edit');
