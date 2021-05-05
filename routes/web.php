@@ -29,8 +29,16 @@ Route::resource('sections', 'SectionController');
 
 Route::resource('products', 'ProductController');
 
+Route::resource('invoice-attachment', 'InvoicesAttachmentsController');
+
 Route::get('/section/{id}', 'InvoiceController@getProducts');
 
 Route::get('/{page}', 'AdminController@index');
 
 Route::get('/invoices-details/{id}', 'InvoicesDetailsController@edit');
+
+Route::get('/download/{invoice_number}/{file_name}', 'InvoicesDetailsController@get_file');
+
+Route::get('/view-file/{invoice_number}/{file_name}', 'InvoicesDetailsController@open_file');
+
+Route::post('/delete-file', 'InvoicesDetailsController@destroy')->name('delete_file');
