@@ -29,7 +29,7 @@ Route::resource('sections', 'SectionController');
 
 Route::resource('products', 'ProductController');
 
-Route::resource('invoice-attachment', 'InvoicesAttachmentsController');
+Route::resource('invoice-attachments', 'InvoicesAttachmentsController');
 
 Route::get('/section/{id}', 'InvoiceController@getProducts');
 
@@ -42,3 +42,9 @@ Route::get('/download/{invoice_number}/{file_name}', 'InvoicesDetailsController@
 Route::get('/view-file/{invoice_number}/{file_name}', 'InvoicesDetailsController@open_file');
 
 Route::post('/delete-file', 'InvoicesDetailsController@destroy')->name('delete_file');
+
+Route::get('/edit_invoice/{id}', 'InvoiceController@edit');
+
+Route::get('/status-show/{id}', 'InvoiceController@show')->name('status_show');
+
+Route::post('/status-Update/{id}', 'InvoiceController@status_update')->name('status_Update');

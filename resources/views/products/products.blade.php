@@ -16,7 +16,7 @@
     <link href="{{ URL::asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
 @endsection
 @section('title')
-    Productos
+    SCDB | Productos
 @stop
 
 @section('page-header')

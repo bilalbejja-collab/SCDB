@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ URL::asset('assets/plugins/telephoneinput/telephoneinput-rtl.css') }}">
 @endsection
 @section('title')
-    SCDB | Añadir factura
+    SCDB | Modificar factura
 @stop
 
 @section('page-header')
@@ -20,10 +20,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">Facturas</h4>
-                <span class="text-muted mt-1 tx-13 mr-2 mb-0">/
-                    Añadir factura
-                </span>
+                <h4 class="content-title mb-0 my-auto">Facturas</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
+                    Modificar factura</span>
             </div>
         </div>
     </div>
@@ -31,9 +29,9 @@
 @endsection
 @section('content')
 
-    @if (session()->has('Add'))
+    @if (session()->has('Edit'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>{{ session()->get('Add') }}</strong>
+            <strong>{{ session()->get('Edit') }}</strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -45,41 +43,46 @@
         <div class="col-lg-12 col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('invoices.store') }}" method="post" enctype="multipart/form-data"
-                        autocomplete="off">
-                        {{ csrf_field() }}
 
+                    <form action="{{ url('invoices/update') }}" method="post" autocomplete="off">
+                        {{ method_field('patch') }}
+                        {{ csrf_field() }}
                         {{-- Fila 1 --}}
                         <div class="row">
                             <div class="col">
-                                <label for="number" class="control-label">Número de factura</label>
-                                <input type="text" class="form-control" id="number" name="number"
-                                    title="Ingrese el número de factura" required>
+                                <label for="invoice_number" class="control-label">Número de factura</label>
+                                <input type="hidden" name="invoice_id" value="{{ $invoice->id }}">
+                                <input type="text" class="form-control" id="invoice_number" name="invoice_number"
+                                    title="Ingrese el número de factura" value="{{ $invoice->number }}" required>
                             </div>
 
                             <div class="col">
-                                <label>Fecha de inicio</label>
-                                <input class="form-control fc-datepicker" name="date" placeholder="YYYY-MM-DD" type="text"
-                                    value="{{ date('Y-m-d') }}" required>
+                                <label>Fecha de la factura</label>
+                                <input class="form-control fc-datepicker" name="date" placeholder="YYYY-MM-DD"
+                                    type="text" value="{{ $invoice->date }}" required>
                             </div>
 
                             <div class="col">
                                 <label>Fecha de vencimiento</label>
                                 <input class="form-control fc-datepicker" name="due_date" placeholder="YYYY-MM-DD"
-                                    type="text" required>
+                                    type="text" value="{{ $invoice->due_date }}" required>
                             </div>
+
                         </div>
 
                         {{-- Fila 2 --}}
                         <div class="row">
                             <div class="col">
-                                <label for="section" class="control-label">Sección</label>
-                                <select name="section" class="form-control" onclick="console.log($(this).val())"
-                                    onchange="console.log('está cambiando')">
-
-                                    <option value="" selected disabled>Selecciona la sección</option>
+                                <label for="inputName" class="control-label">Sección</label>
+                                <select name="section" class="form-control" onclick="console.log($(this).val())">
+                                    <option value=" {{ $invoice->section->id }}">
+                                        {{ $invoice->section->name }}
+                                    </option>
+                                    {{-- para que no se repite la sección por defecto de la factura --}}
                                     @foreach ($sections as $section)
-                                        <option value="{{ $section->id }}">{{ $section->name }}</option>
+                                        @if ($section->name !== $invoice->section->name)
+                                            <option value="{{ $section->id }}"> {{ $section->name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -87,56 +90,64 @@
                             <div class="col">
                                 <label for="product" class="control-label">Producto</label>
                                 <select id="product" name="product" class="form-control">
+                                    <option value="{{ $invoice->product }}"> {{ $invoice->product }}</option>
                                 </select>
                             </div>
 
                             <div class="col">
                                 <label for="amount_collection" class="control-label">Importe de la recaudación</label>
                                 <input type="text" class="form-control" id="amount_collection" name="amount_collection"
-                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                    value="{{ $invoice->amount_collection }}">
                             </div>
                         </div>
 
 
                         {{-- Fila 3 --}}
+
                         <div class="row">
                             <div class="col">
                                 <label for="amount_commission" class="control-label">Monto de la comisión</label>
-                                <input type="text" class="form-control" id="amount_commission" name="amount_commission"
-                                    title="Ingrese el monto de la comisión"
+                                <input type="text" class="form-control form-control-lg" id="amount_commission"
+                                    name="amount_commission" title="Ingrese el monto de la comisión"
                                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                                    required>
+                                    value="{{ $invoice->amount_commission }}" required>
                             </div>
 
                             <div class="col">
                                 <label for="discount" class="control-label">Descuento</label>
-                                <input type="text" class="form-control" id="discount" name="discount"
+                                <input type="text" class="form-control form-control-lg" id="discount" name="discount"
                                     title="Ingrese el monto del descuento"
                                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                                    value=0 required>
+                                    value="{{ $invoice->discount }}" required>
                             </div>
 
                             <div class="col">
                                 <label for="IVA" class="control-label">La tasa del impuestos (IVA)</label>
                                 <select name="IVA" id="IVA" class="form-control" onchange="myFunction()">
                                     <!--placeholder-->
-                                    <option value="" selected disabled>Seleccione IVA</option>
-                                    <option value=" 5%">5%</option>
+                                    <option value="{{ $invoice->rate_vat }}">
+                                        {{ $invoice->rate_vat }}
+                                    <option value="5%">5%</option>
                                     <option value="10%">10%</option>
                                 </select>
                             </div>
+
                         </div>
 
                         {{-- Fila 4 --}}
+
                         <div class="row">
                             <div class="col">
                                 <label for="value_IVA" class="control-label">Impuestos IVA</label>
-                                <input type="text" class="form-control" id="value_IVA" name="value_IVA" readonly>
+                                <input type="text" class="form-control" id="value_IVA" name="value_IVA"
+                                    value="{{ $invoice->value_IVA }}" readonly>
                             </div>
 
                             <div class="col">
                                 <label for="total" class="control-label">Total (incluye IVA)</label>
-                                <input type="text" class="form-control" id="total" name="total" readonly>
+                                <input type="text" class="form-control" id="total" name="total" readonly
+                                    value="{{ $invoice->total }}">
                             </div>
                         </div>
 
@@ -144,35 +155,28 @@
                         <div class="row">
                             <div class="col">
                                 <label for="note">Observaciones</label>
-                                <textarea class="form-control" id="note" name="note" rows="3"></textarea>
+                                <textarea class="form-control" id="note" name="note" rows="3">
+                                                    {{ $invoice->note }}</textarea>
                             </div>
-                        </div><br>
-
-                        <p class="text-danger">* Fórmula de apego: pdf, jpeg ,.jpg , png </p>
-                        <label>Archivos adjuntos</label>
-
-                        <div class="col-sm-12 col-md-12">
-                            <input type="file" name="pic" class="dropify" accept=".pdf,.jpg, .png, image/jpeg, image/png"
-                                data-height="70" />
                         </div><br>
 
                         <div class="d-flex justify-content-center">
                             <button type="submit" class="btn btn-primary">Guardar datos</button>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
     </div>
-
     </div>
-
     <!-- row closed -->
     </div>
     <!-- Container closed -->
     </div>
     <!-- main-content closed -->
 @endsection
+
 @section('js')
     <!-- Internal Select2 js-->
     <script src="{{ URL::asset('assets/plugins/select2/js/select2.min.js') }}"></script>
@@ -215,10 +219,10 @@
          */
         $(document).ready(function() {
             $('select[name="section"]').on('change', function() {
-                var sectionId = $(this).val();
-                if (sectionId) {
+                var SectionId = $(this).val();
+                if (SectionId) {
                     $.ajax({
-                        url: "{{ URL::to('section') }}/" + sectionId,
+                        url: "{{ URL::to('section') }}/" + SectionId,
                         type: "GET",
                         dataType: "json",
                         success: function(data) {
@@ -238,9 +242,6 @@
     </script>
 
     <script>
-        /**
-         * Calcula el impuesto sobre el valor añadido y el total más los impuestos dependiendo del IVA
-         */
         function myFunction() {
             var amount_commission = parseFloat(document.getElementById("amount_commission").value);
             var discount = parseFloat(document.getElementById("discount").value);

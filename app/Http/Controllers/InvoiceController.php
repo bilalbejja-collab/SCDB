@@ -95,14 +95,28 @@ class InvoiceController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Display the specified resource.
      *
-     * @param  \App\Invoice  $invoice
+     * @param  \App\invoices  $invoices
      * @return \Illuminate\Http\Response
      */
-    public function edit(Invoice $invoice)
+    public function show($id)
     {
-        //
+        $invoices = Invoice::where('id', $id)->first();
+        return view('invoices.status_update', compact('invoices'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\invoices  $invoices
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $invoice = Invoice::where('id', $id)->first();
+        $sections = Section::all();
+        return view('invoices.edit_invoice', compact('sections', 'invoice'));
     }
 
     /**
@@ -112,9 +126,26 @@ class InvoiceController extends Controller
      * @param  \App\Invoice  $invoice
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Invoice $invoice)
+    public function update(Request $request)
     {
-        //
+        $invoice = Invoice::findOrFail($request->invoice_id);
+        $invoice->update([
+            'number' => $request->invoice_number,
+            'date' => $request->date,
+            'due_date' => $request->due_date,
+            'product' => $request->product,
+            'section_id' => $request->section,
+            'amount_collection' => $request->amount_collection,
+            'amount_commission' => $request->amount_commission,
+            'discount' => $request->discount,
+            'value_vat' => $request->value_IVA,
+            'rate_vat' => $request->IVA,
+            'total' => $request->total,
+            'note' => $request->note,
+        ]);
+
+        session()->flash('Edit', 'La factura se actualizó con éxito');
+        return back();
     }
 
     /**

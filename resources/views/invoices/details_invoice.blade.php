@@ -8,7 +8,7 @@
     <link href="{{ URL::asset('assets/plugins/custom-scroll/jquery.mCustomScrollbar.css') }}" rel="stylesheet">
 @endsection
 @section('title')
-    Detalles de la factura
+    SCDB | Detalles de la factura
 @stop
 @section('page-header')
     <!-- breadcrumb -->
@@ -48,7 +48,7 @@
 
 
 
-    @if (session()->has('delete'))
+    @if (session()->has('Delete'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>{{ session()->get('delete') }}</strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -220,16 +220,17 @@
                                                         enctype="multipart/form-data">
                                                         {{ csrf_field() }}
                                                         <div class="custom-file">
-                                                            <input type="file" class="custom-file-input" id="customFile"
+                                                            <input type="file" class="custom-file-input" id="file_name"
                                                                 name="file_name" required>
-                                                            <input type="hidden" id="customFile" name="invoice_number"
+                                                            <input type="hidden" id="invoice_number" name="invoice_number"
                                                                 value="{{ $invoice->number }}">
                                                             <input type="hidden" id="invoice_id" name="invoice_id"
                                                                 value="{{ $invoice->id }}">
-                                                            <label class="custom-file-label" for="customFile">
+                                                            <label class="custom-file-label" for="uploadedFile">
                                                                 Seleccione el adjunto
                                                             </label>
-                                                        </div><br><br>
+                                                        </div>
+                                                        <br><br>
                                                         <button type="submit" class="btn btn-primary btn-sm "
                                                             name="uploadedFile">Confirmar</button>
                                                     </form>

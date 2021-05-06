@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Lista de facturas
+    SCDB | Lista de facturas
 @stop
 @section('css')
     <!-- Internal Data table css -->
@@ -90,13 +90,14 @@
                                         </td>
 
                                         <td>{{ $invoice->note }}</td>
-                                        {{--<td>
+                                        <td>
                                             <div class="dropdown">
                                                 <button aria-expanded="false" aria-haspopup="true"
                                                     class="btn ripple btn-primary btn-sm" data-toggle="dropdown"
-                                                    type="button">Procesos<i class="fas fa-caret-down ml-1"></i></button>
+                                                    type="button">
+                                                    Procesos<i class="fas fa-caret-down ml-1"></i>
+                                                </button>
                                                 <div class="dropdown-menu tx-13">
-
                                                     <a class="dropdown-item"
                                                         href=" {{ url('edit_invoice') }}/{{ $invoice->id }}">
                                                         Modificar la factura
@@ -128,7 +129,7 @@
                                                     </a>
                                                 </div>
                                             </div>
-                                        </td>--}}
+                                        </td>
                                     </tr>
                                 @endforeach
 
