@@ -9,6 +9,7 @@ use App\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class InvoiceController extends Controller
 {
@@ -154,9 +155,32 @@ class InvoiceController extends Controller
      * @param  \App\Invoice  $invoice
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Invoice $invoice)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->invoice_id;
+        $invoice = Invoice::where('id', $id)->first();
+        $details = InvoicesAttachments::where('invoice_id', $id)->first();
+
+        $id_page = $request->id_page;
+
+        if (!empty($details->invoice_number)) {
+            Storage::disk('public_uploads')->deleteDirectory($details->invoice_number);
+        }
+        $invoice->forceDelete();
+        session()->flash('delete_invoice');
+
+        return redirect('/invoices');
+
+        /*
+        if (!$id_page == 2) {
+
+        } else {
+            $invoice->delete();
+            session()->flash('archive_invoice');
+
+            return redirect('/Archive');
+        }
+        */
     }
 
     /**
