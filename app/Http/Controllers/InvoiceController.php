@@ -103,8 +103,8 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
-        $invoices = Invoice::where('id', $id)->first();
-        return view('invoices.status_update', compact('invoices'));
+        $invoice = Invoice::where('id', $id)->first();
+        return view('invoices.status_invoice', compact('invoice'));
     }
 
     /**
@@ -163,6 +163,7 @@ class InvoiceController extends Controller
 
         $id_page = $request->id_page;
 
+        // Borra la carpeta con todos los  a.adjuntos
         if (!empty($details->invoice_number)) {
             Storage::disk('public_uploads')->deleteDirectory($details->invoice_number);
         }
@@ -190,5 +191,52 @@ class InvoiceController extends Controller
     {
         $products = DB::table("products")->where("section_id", $id)->pluck("name", "id");
         return json_encode($products);
+    }
+
+    public function statusUpdate($id, Request $request)
+    {
+        $invoice = Invoice::findOrFail($id);
+
+        if ($request->status === 'pagada') {
+            $invoice->update([
+                'value_status' => 1,
+                'status' => $request->status,
+                'payment_date' => $request->payment_date,
+            ]);
+
+            // Añadir nuevo detalle - pagada
+            InvoicesDetails::create([
+                'invoice_id' => $request->invoice_id,
+                'invoice_number' => $request->invoice_number,
+                'product' => $request->product,
+                'section' => $request->section,
+                'status' => $request->status,
+                'value_status' => 1,
+                'note' => $request->note,
+                'payment_date' => $request->payment_date,
+                'user' => (Auth::user()->name),
+            ]);
+        } else {
+            $invoice->update([
+                'value_status' => 3,
+                'status' => $request->status,
+                'payment_date' => $request->payment_date,
+            ]);
+
+            // Añadir nuevo detalle - pagada parcialmente
+            InvoicesDetails::create([
+                'invoice_id' => $request->invoice_id,
+                'invoice_number' => $request->invoice_number,
+                'product' => $request->product,
+                'section' => $request->section,
+                'status' => $request->status,
+                'value_status' => 3,
+                'note' => $request->note,
+                'payment_date' => $request->payment_date,
+                'user' => (Auth::user()->name),
+            ]);
+        }
+        session()->flash('status_update');
+        return redirect('/invoices');
     }
 }

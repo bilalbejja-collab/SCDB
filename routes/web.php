@@ -43,8 +43,8 @@ Route::get('/view-file/{invoice_number}/{file_name}', 'InvoicesDetailsController
 
 Route::post('/delete-file', 'InvoicesDetailsController@destroy')->name('delete_file');
 
-Route::get('/edit_invoice/{id}', 'InvoiceController@edit');
+Route::get('/edit-invoice/{id}', 'InvoiceController@edit');
 
-Route::get('/status-show/{id}', 'InvoiceController@show')->name('status_show');
+Route::get('/status-show/{id}', 'InvoiceController@show')->name('status-show');
 
-Route::post('/status-Update/{id}', 'InvoiceController@status_update')->name('status_Update');
+Route::post('/status-update/{id}', 'InvoiceController@statusUpdate')->name('status-update');

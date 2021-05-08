@@ -19,7 +19,6 @@
                     Detalles de la factura</span>
             </div>
         </div>
-
     </div>
     <!-- breadcrumb -->
 @endsection

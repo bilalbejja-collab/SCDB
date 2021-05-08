@@ -39,6 +39,18 @@
         </script>
     @endif
 
+    @if (session()->has('status_update'))
+        <script>
+            window.onload = function() {
+                notif({
+                    msg: "El estado del pago se ha actualizado correctamente",
+                    type: "success"
+                })
+            }
+
+        </script>
+    @endif
+
     <!-- row -->
     <div class="row">
         <!--div-->
@@ -114,7 +126,7 @@
                                                 </button>
                                                 <div class="dropdown-menu tx-13">
                                                     <a class="dropdown-item"
-                                                        href=" {{ url('edit_invoice') }}/{{ $invoice->id }}">
+                                                        href=" {{ url('edit-invoice') }}/{{ $invoice->id }}">
                                                         Modificar la factura
                                                     </a>
 
@@ -125,20 +137,23 @@
                                                         &nbsp;&nbsp;Eliminar la factura
                                                     </a>
 
-                                                    <a class="dropdown-item"
-                                                        href="{{ URL::route('status_show', [$invoice->id]) }}"><i
-                                                            class=" text-success fas fa-money-bill"></i>
-                                                        &nbsp;&nbsp; Cambiar el estado de pago
-                                                    </a>
+                                                    {{-- cambiar estado solo en casos 'no pagada' y 'pagada parcialmente' --}}
+                                                    @if ($invoice->value_status != 1)
+                                                        <a class="dropdown-item"
+                                                            href="{{ URL::route('status-show', [$invoice->id]) }}"><i
+                                                                class=" text-success fas fa-money-bill"></i>
+                                                            &nbsp;&nbsp; Cambiar el estado de pago
+                                                        </a>
+                                                    @endif
 
                                                     <a class="dropdown-item" href="#"
                                                         data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
-                                                        data-target="#Transfer_invoice"><i
+                                                        data-target="#transfer_invoice"><i
                                                             class="text-warning fas fa-exchange-alt"></i>
                                                         &nbsp;&nbsp; Transferir al archivo
                                                     </a>
 
-                                                    <a class="dropdown-item" href="print_invoice/{{ $invoice->id }}"><i
+                                                    <a class="dropdown-item" href="print-invoice/{{ $invoice->id }}"><i
                                                             class="text-success fas fa-print"></i>
                                                         &nbsp;&nbsp; Imprimir la factura
                                                     </a>
@@ -225,5 +240,6 @@
             var modal = $(this)
             modal.find('.modal-body #invoice_id').val(invoice_id);
         })
+
     </script>
 @endsection
