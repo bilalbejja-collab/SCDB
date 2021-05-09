@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    SCDB | Lista de facturas
+    Facturas pagadas
 @stop
 @section('css')
     <!-- Internal Data table css -->
@@ -18,8 +18,9 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">Facturas</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Lista de
-                    facturas</span>
+                <h4 class="content-title mb-0 my-auto">Facturas</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Facturas
+                    pagadas
+                </span>
             </div>
         </div>
     </div>
@@ -31,34 +32,24 @@
         <script>
             window.onload = function() {
                 notif({
-                    msg: "La factura se ha eliminado correctamente",
+                    msg: "La factura se borró con éxito",
                     type: "success"
                 })
             }
 
         </script>
     @endif
+
 
     @if (session()->has('status_update'))
         <script>
             window.onload = function() {
                 notif({
-                    msg: "El estado del pago se ha actualizado correctamente",
+                    msg: "La factura de actualizó con éxito",
                     type: "success"
                 })
             }
 
-        </script>
-    @endif
-
-    @if (session()->has('restore_invoice'))
-        <script>
-            window.onload = function() {
-                notif({
-                    msg: "La factura se ha restaurado correctamente",
-                    type: "success"
-                })
-            }
         </script>
     @endif
 
@@ -68,16 +59,14 @@
         <div class="col-xl-12">
             <div class="card mg-b-20">
                 <div class="card-header pb-0">
-                    <a href="invoices/create" class="modal-effect btn btn-sm btn-primary" style="color:white"><i
-                            class="fas fa-plus"></i>&nbsp; Añadir factura</a>
-
-                    <a class="modal-effect btn btn-sm btn-primary" href="{{ url('export_invoices') }}"
-                        style="color:white"><i class="fas fa-file-download"></i>&nbsp; Exportación de Excel</a>
+                    <div class="d-flex justify-content-between">
+                        <a href="invoices/create" class="modal-effect btn btn-sm btn-primary" style="color:white"><i
+                                class="fas fa-plus"></i>&nbsp; Añadir factura</a>
+                    </div>
                 </div>
-
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="example1" class="table key-buttons text-md-nowrap">
+                        <table id="example1" class="table table-bordered key-buttons text-md-nowrap" data-page-length='50'>
                             <thead>
                                 <tr>
                                     <th class="border-bottom-0">#</th>
@@ -182,7 +171,6 @@
         </div>
         <!--/div-->
     </div>
-    <!-- row closed -->
 
     <!-- Eliminar factura -->
     <div class="modal fade" id="delete_invoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -212,6 +200,7 @@
         </div>
     </div>
 
+
     <!-- Archivar factura -->
     <div class="modal fade" id="transfer_invoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -229,7 +218,7 @@
                 <div class="modal-body">
                     ¿Está seguro del proceso de archivo?
                     <input type="hidden" name="invoice_id" id="invoice_id" value="">
-                    <input type="hidden" name="code" id="code" value="2">
+                    <input type="hidden" name="id_page" id="id_page" value="2">
 
                 </div>
                 <div class="modal-footer">
@@ -240,7 +229,8 @@
             </div>
         </div>
     </div>
-
+    </div>
+    <!-- row closed -->
     </div>
     <!-- Container closed -->
     </div>

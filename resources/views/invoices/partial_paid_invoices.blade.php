@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    SCDB | Lista de facturas
+    Las facturas pagadas parcialmente
 @stop
 @section('css')
     <!-- Internal Data table css -->
@@ -18,10 +18,12 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">Facturas</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Lista de
-                    facturas</span>
+                <h4 class="content-title mb-0 my-auto">Facturas</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Facturas
+                    Facturas pagadas parcialmente
+                </span>
             </div>
         </div>
+
     </div>
     <!-- breadcrumb -->
 @endsection
@@ -51,33 +53,20 @@
         </script>
     @endif
 
-    @if (session()->has('restore_invoice'))
-        <script>
-            window.onload = function() {
-                notif({
-                    msg: "La factura se ha restaurado correctamente",
-                    type: "success"
-                })
-            }
-        </script>
-    @endif
-
     <!-- row -->
     <div class="row">
         <!--div-->
         <div class="col-xl-12">
             <div class="card mg-b-20">
                 <div class="card-header pb-0">
-                    <a href="invoices/create" class="modal-effect btn btn-sm btn-primary" style="color:white"><i
-                            class="fas fa-plus"></i>&nbsp; Añadir factura</a>
-
-                    <a class="modal-effect btn btn-sm btn-primary" href="{{ url('export_invoices') }}"
-                        style="color:white"><i class="fas fa-file-download"></i>&nbsp; Exportación de Excel</a>
+                    <div class="d-flex justify-content-between">
+                        <a href="invoices/create" class="modal-effect btn btn-sm btn-primary" style="color:white"><i
+                                class="fas fa-plus"></i>&nbsp; Añadir factura</a>
+                    </div>
                 </div>
-
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="example1" class="table key-buttons text-md-nowrap">
+                        <table id="example1" class="table table-bordered key-buttons text-md-nowrap" data-page-length='50'>
                             <thead>
                                 <tr>
                                     <th class="border-bottom-0">#</th>
@@ -132,30 +121,22 @@
                                             <div class="dropdown">
                                                 <button aria-expanded="false" aria-haspopup="true"
                                                     class="btn ripple btn-primary btn-sm" data-toggle="dropdown"
-                                                    type="button">
-                                                    Procesos<i class="fas fa-caret-down ml-1"></i>
-                                                </button>
+                                                    type="button">Procesos<i class="fas fa-caret-down ml-1"></i></button>
                                                 <div class="dropdown-menu tx-13">
                                                     <a class="dropdown-item"
-                                                        href=" {{ url('edit-invoice') }}/{{ $invoice->id }}">
-                                                        Modificar la factura
-                                                    </a>
+                                                        href=" {{ url('edit-invoice') }}/{{ $invoice->id }}">Editar la
+                                                        factura</a>
 
                                                     <a class="dropdown-item" href="#"
                                                         data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
                                                         data-target="#delete_invoice"><i
-                                                            class="text-danger fas fa-trash-alt"></i>
-                                                        &nbsp;&nbsp;Eliminar la factura
-                                                    </a>
+                                                            class="text-danger fas fa-trash-alt"></i>&nbsp;&nbsp;Borrar la
+                                                        factura</a>
 
-                                                    {{-- cambiar estado solo en casos 'no pagada' y 'pagada parcialmente' --}}
-                                                    @if ($invoice->value_status != 1)
-                                                        <a class="dropdown-item"
-                                                            href="{{ URL::route('status-show', [$invoice->id]) }}"><i
-                                                                class=" text-success fas fa-money-bill"></i>
-                                                            &nbsp;&nbsp; Cambiar el estado de pago
-                                                        </a>
-                                                    @endif
+                                                    <a class="dropdown-item"
+                                                        href="{{ URL::route('status-show', [$invoice->id]) }}"><i
+                                                            class=" text-success fas fa-money-bill"></i>&nbsp;&nbsp;Cambiar
+                                                        estado de pago</a>
 
                                                     <a class="dropdown-item" href="#"
                                                         data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
@@ -164,12 +145,9 @@
                                                         &nbsp;&nbsp; Transferir al archivo
                                                     </a>
 
-                                                    <a class="dropdown-item" href="print-invoice/{{ $invoice->id }}"><i
-                                                            class="text-success fas fa-print"></i>
-                                                        &nbsp;&nbsp; Imprimir la factura
-                                                    </a>
                                                 </div>
                                             </div>
+
                                         </td>
                                     </tr>
                                 @endforeach
@@ -182,19 +160,17 @@
         </div>
         <!--/div-->
     </div>
-    <!-- row closed -->
 
-    <!-- Eliminar factura -->
+    <!-- Borrar la factura -->
     <div class="modal fade" id="delete_invoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Eliminar la factura</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Borrar la factura</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    {{-- Si hay algun problema me lleva a 'test' --}}
                     <form action="{{ route('invoices.destroy', 'test') }}" method="post">
                         {{ method_field('delete') }}
                         {{ csrf_field() }}
@@ -212,8 +188,9 @@
         </div>
     </div>
 
-    <!-- Archivar factura -->
-    <div class="modal fade" id="transfer_invoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+
+    <!-- Archivar la factura -->
+    <div class="modal fade" id="Transfer_invoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -227,9 +204,9 @@
                         {{ csrf_field() }}
                 </div>
                 <div class="modal-body">
-                    ¿Está seguro del proceso de archivo?
+                    ¿Estás seguro del proceso de archivar la factura?
                     <input type="hidden" name="invoice_id" id="invoice_id" value="">
-                    <input type="hidden" name="code" id="code" value="2">
+                    <input type="hidden" name="id_page" id="id_page" value="2">
 
                 </div>
                 <div class="modal-footer">
@@ -241,6 +218,8 @@
         </div>
     </div>
 
+    </div>
+    <!-- row closed -->
     </div>
     <!-- Container closed -->
     </div>
@@ -271,9 +250,6 @@
     <script src="{{ URL::asset('assets/plugins/notify/js/notifit-custom.js') }}"></script>
 
     <script>
-        /*
-         * Asigna el id al input hidden en el modal de eliminar
-         */
         $('#delete_invoice').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var invoice_id = button.data('invoice_id')
@@ -284,10 +260,7 @@
     </script>
 
     <script>
-        /*
-         * Asigna el id al input hidden en el modal de archivar
-         */
-        $('#transfer_invoice').on('show.bs.modal', function(event) {
+        $('#Transfer_invoice').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var invoice_id = button.data('invoice_id')
             var modal = $(this)
@@ -295,4 +268,6 @@
         })
 
     </script>
+
+
 @endsection

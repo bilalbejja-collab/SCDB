@@ -60,25 +60,25 @@
                     </li>
 
                     <li>
-                        <a class="slide-item" href="{{ url('/' . ($page = '')) }}">
+                        <a class="slide-item" href="{{ url('/' . ($page = 'paid-invoices')) }}">
                             Facturas pagadas
                         </a>
                     </li>
 
                     <li>
-                        <a class="slide-item" href="{{ url('/' . ($page = '')) }}">Facturas no
+                        <a class="slide-item" href="{{ url('/' . ($page = 'unpaid-invoices')) }}">Facturas no
                             pagadas
                         </a>
                     </li>
 
                     <li>
-                        <a class="slide-item" href="{{ url('/' . ($page = '')) }}">
+                        <a class="slide-item" href="{{ url('/' . ($page = 'partial-paid-invoices')) }}">
                             Facturas pagadas parcialmente
                         </a>
                     </li>
 
                     <li>
-                        <a class="slide-item" href="{{ url('/' . ($page = '')) }}">
+                        <a class="slide-item" href="{{ url('/' . ($page = 'archive')) }}">
                             El archivo de facturas
                         </a>
                     </li>

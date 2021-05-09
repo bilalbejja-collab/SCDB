@@ -33,8 +33,6 @@ Route::resource('invoice-attachments', 'InvoicesAttachmentsController');
 
 Route::get('/section/{id}', 'InvoiceController@getProducts');
 
-Route::get('/{page}', 'AdminController@index');
-
 Route::get('/invoices-details/{id}', 'InvoicesDetailsController@edit');
 
 Route::get('/download/{invoice_number}/{file_name}', 'InvoicesDetailsController@get_file');
@@ -48,3 +46,15 @@ Route::get('/edit-invoice/{id}', 'InvoiceController@edit');
 Route::get('/status-show/{id}', 'InvoiceController@show')->name('status-show');
 
 Route::post('/status-update/{id}', 'InvoiceController@statusUpdate')->name('status-update');
+
+Route::resource('archive', 'InvoicesArchiveController');
+
+Route::get('paid-invoices', 'InvoiceController@paidInvoices');
+
+Route::get('unpaid-invoices', 'InvoiceController@unpaidInvoices');
+
+Route::get('partial-paid-invoices', 'InvoiceController@partialPaidInvoices');
+
+
+
+Route::get('/{page}', 'AdminController@index');

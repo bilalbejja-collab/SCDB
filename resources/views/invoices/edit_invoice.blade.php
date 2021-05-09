@@ -58,8 +58,8 @@
 
                             <div class="col">
                                 <label>Fecha de la factura</label>
-                                <input class="form-control fc-datepicker" name="date" placeholder="YYYY-MM-DD"
-                                    type="text" value="{{ $invoice->date }}" required>
+                                <input class="form-control fc-datepicker" name="date" placeholder="YYYY-MM-DD" type="text"
+                                    value="{{ $invoice->date }}" required>
                             </div>
 
                             <div class="col">
@@ -125,11 +125,14 @@
                             <div class="col">
                                 <label for="IVA" class="control-label">La tasa del impuestos (IVA)</label>
                                 <select name="IVA" id="IVA" class="form-control" onchange="myFunction()">
-                                    <!--placeholder-->
-                                    <option value="{{ $invoice->rate_vat }}">
-                                        {{ $invoice->rate_vat }}
-                                    <option value="5%">5%</option>
-                                    <option value="10%">10%</option>
+                                    @if ($invoice->rate_vat == '5%')
+                                        <option value="5%" selected>5%</option>
+                                        <option value="10%">10%</option>
+                                    @else
+                                        <option value="5%">5%</option>
+                                        <option value="10%" selected>10%</option>
+                                    @endif
+
                                 </select>
                             </div>
 
@@ -141,7 +144,7 @@
                             <div class="col">
                                 <label for="value_IVA" class="control-label">Impuestos IVA</label>
                                 <input type="text" class="form-control" id="value_IVA" name="value_IVA"
-                                    value="{{ $invoice->value_IVA }}" readonly>
+                                    value="{{ $invoice->value_vat }}" readonly>
                             </div>
 
                             <div class="col">
@@ -156,7 +159,7 @@
                             <div class="col">
                                 <label for="note">Observaciones</label>
                                 <textarea class="form-control" id="note" name="note" rows="3">
-                                                    {{ $invoice->note }}</textarea>
+                                                            {{ $invoice->note }}</textarea>
                             </div>
                         </div><br>
 
