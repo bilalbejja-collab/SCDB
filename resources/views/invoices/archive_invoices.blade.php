@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Archivo de facturas
+    SCDB | Archivo de facturas
 @stop
 @section('css')
     <!-- Internal Data table css -->
@@ -136,7 +136,8 @@
                                                     <a class="dropdown-item" href="#"
                                                         data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
                                                         data-target="#transfer_invoice"><i
-                                                            class="text-warning fas fa-exchange-alt"></i>&nbsp;&nbsp;Desarchivar la factura</a>
+                                                            class="text-warning fas fa-exchange-alt"></i>&nbsp;&nbsp;Desarchivar
+                                                        la factura</a>
                                                     <a class="dropdown-item" href="#"
                                                         data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
                                                         data-target="#delete_invoice"><i

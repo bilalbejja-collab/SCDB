@@ -2,7 +2,7 @@
 @section('css')
 @endsection
 @section('title')
-    Cambiar el estado de pago
+    SCDB | Cambio de estado
 @stop
 @section('page-header')
     <!-- breadcrumb -->
@@ -30,14 +30,13 @@
                                 <label for="invoice_number" class="control-label">Número de factura</label>
                                 <input type="hidden" name="invoice_id" value="{{ $invoice->id }}">
                                 <input type="text" class="form-control" id="invoice_number" name="invoice_number"
-                                    title="Ingrese el número de factura" value="{{ $invoice->number }}" required
-                                    readonly>
+                                    title="Ingrese el número de factura" value="{{ $invoice->number }}" required readonly>
                             </div>
 
                             <div class="col">
                                 <label>Fecha de factura</label>
-                                <input class="form-control fc-datepicker" name="date" placeholder="YYYY-MM-DD"
-                                    type="text" value="{{ $invoice->date }}" required readonly>
+                                <input class="form-control fc-datepicker" name="date" placeholder="YYYY-MM-DD" type="text"
+                                    value="{{ $invoice->date }}" required readonly>
                             </div>
 
                             <div class="col">
@@ -125,7 +124,7 @@
                             <div class="col">
                                 <label for="note">Observaciones</label>
                                 <textarea class="form-control" id="note" name="note" rows="3" readonly>
-                                        {{ $invoice->note }}</textarea>
+                                            {{ $invoice->note }}</textarea>
                             </div>
                         </div><br>
 
@@ -182,5 +181,6 @@
         var date = $('.fc-datepicker').datepicker({
             dateFormat: 'yy-mm-dd'
         }).val();
+
     </script>
 @endsection

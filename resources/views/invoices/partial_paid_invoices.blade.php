@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Las facturas pagadas parcialmente
+    SCDB | Facturas pagadas parcialmente
 @stop
 @section('css')
     <!-- Internal Data table css -->

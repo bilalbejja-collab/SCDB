@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Facturas no pagadas
+    SCDB | Facturas no pagadas
 @stop
 @section('css')
     <!-- Internal Data table css -->
