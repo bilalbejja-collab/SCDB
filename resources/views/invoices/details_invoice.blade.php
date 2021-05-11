@@ -24,17 +24,18 @@
 @endsection
 @section('content')
 
-
     @if ($errors->any())
-        <div class="alert alert-danger">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 @endforeach
             </ul>
         </div>
     @endif
-
 
     @if (session()->has('Add'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -45,8 +46,6 @@
         </div>
     @endif
 
-
-
     @if (session()->has('Delete'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>{{ session()->get('delete') }}</strong>
@@ -56,22 +55,19 @@
         </div>
     @endif
 
-
-
     <!-- row opened -->
     <div class="row row-sm">
-
         <div class="col-xl-12">
             <!-- div -->
             <div class="card mg-b-20" id="tabs-style2">
                 <div class="card-body">
                     <div class="text-wrap">
                         <div class="example">
-                            <div class="panel panel-primary tabs-style-2">
+                            <div class="panel panel-primary tabs-style-3">
                                 <div class=" tab-menu-heading">
-                                    <div class="tabs-menu1">
+                                    <div class="tabs-menu">
                                         <!-- Tabs -->
-                                        <ul class="nav panel-tabs main-nav-line">
+                                        <ul class="nav panel-tabs">
                                             <li>
                                                 <a href="#tab1" class="nav-link active" data-toggle="tab">
                                                     Información de la factura

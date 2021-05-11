@@ -70,7 +70,7 @@ class SectionController extends Controller
             'description' => $request->description,
         ]);
 
-        session()->flash('edit', 'La sección se ha modificado con éxito');
+        session()->flash('Edit', 'La sección se ha modificado con éxito');
         return redirect('/sections');
     }
 
@@ -84,7 +84,7 @@ class SectionController extends Controller
     {
         $id = $request->id;
         Section::find($id)->delete();
-        session()->flash('delete', 'La sección se ha eliminado correctamente');
+        session()->flash('Delete', 'La sección se ha eliminado correctamente');
         return redirect('/sections');
     }
 }

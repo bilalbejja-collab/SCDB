@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Invoice;
 use App\InvoicesAttachments;
 use App\InvoicesDetails;
+use App\Notifications\AddInvoice;
 use App\Section;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 
 class InvoiceController extends Controller
@@ -43,6 +46,12 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'number' => 'required|unique:invoices|max:255',
+        ], [
+            'number.unique' => 'Ya existe una factura con el número introducido',
+        ]);
+
         Invoice::create([
             'number' => $request->number,
             'date' => $request->date,
@@ -91,6 +100,11 @@ class InvoiceController extends Controller
             $request->pic->move(public_path('Attachments/' . $invoice_number), $imageName);
         }
 
+        $user = User::first();
+
+        // $user->notify(new AddInvoice($invoice_id));
+        Notification::send($user, new AddInvoice($invoice_id));
+
         session()->flash('Add', 'Se agregó la factura con éxito');
         return back();
     }
@@ -129,9 +143,17 @@ class InvoiceController extends Controller
      */
     public function update(Request $request)
     {
+        $id = $request->invoice_id;
+
+        $this->validate($request, [
+            'number' => 'required|max:255|unique:invoices,number,' . $id,
+        ], [
+            'number.unique' => 'Ya existe una factura con el número introducido',
+        ]);
+
         $invoice = Invoice::findOrFail($request->invoice_id);
         $invoice->update([
-            'number' => $request->invoice_number,
+            'number' => $request->number,
             'date' => $request->date,
             'due_date' => $request->due_date,
             'product' => $request->product,

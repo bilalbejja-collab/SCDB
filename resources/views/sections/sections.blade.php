@@ -45,7 +45,7 @@
     </div>
 @endif
 
-@if (session()->has('delete'))
+@if (session()->has('Delete'))
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <strong>{{ session()->get('delete') }}</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -54,7 +54,7 @@
     </div>
 @endif
 
-@if (session()->has('edit'))
+@if (session()->has('Edit'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>{{ session()->get('edit') }}</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">

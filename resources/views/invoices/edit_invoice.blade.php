@@ -29,6 +29,19 @@
 @endsection
 @section('content')
 
+    @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     @if (session()->has('Edit'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>{{ session()->get('Edit') }}</strong>
@@ -50,9 +63,9 @@
                         {{-- Fila 1 --}}
                         <div class="row">
                             <div class="col">
-                                <label for="invoice_number" class="control-label">Número de factura</label>
+                                <label for="number" class="control-label">Número de factura</label>
                                 <input type="hidden" name="invoice_id" value="{{ $invoice->id }}">
-                                <input type="text" class="form-control" id="invoice_number" name="invoice_number"
+                                <input type="text" class="form-control" id="number" name="number"
                                     title="Ingrese el número de factura" value="{{ $invoice->number }}" required>
                             </div>
 
@@ -159,7 +172,7 @@
                             <div class="col">
                                 <label for="note">Observaciones</label>
                                 <textarea class="form-control" id="note" name="note" rows="3">
-                                                            {{ $invoice->note }}</textarea>
+                                                                        {{ $invoice->note }}</textarea>
                             </div>
                         </div><br>
 

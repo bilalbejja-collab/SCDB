@@ -42,7 +42,7 @@
     @endif
 
 
-    @if (session()->has('Status_Update'))
+    @if (session()->has('status_update'))
         <script>
             window.onload = function() {
                 notif({

@@ -27,6 +27,8 @@
 @endsection
 @section('content')
 
+@section('content')
+
     @if (session()->has('delete_invoice'))
         <script>
             window.onload = function() {

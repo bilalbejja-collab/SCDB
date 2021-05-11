@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Panel de control - BillSoft programa de facturación
+    Panel de control - SCDB programa de facturación
 @stop
 @section('css')
 <!--  Owl-carousel css-->
