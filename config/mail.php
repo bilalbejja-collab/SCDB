@@ -41,10 +41,20 @@ return [
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
+            'timeout' => null,
+            'auth_mode' => null,
         ],
 
         'ses' => [
             'transport' => 'ses',
+        ],
+
+        'mailgun' => [
+            'transport' => 'mailgun',
+        ],
+
+        'postmark' => [
+            'transport' => 'postmark',
         ],
 
         'sendmail' => [
@@ -96,5 +106,11 @@ return [
             resource_path('views/vendor/mail'),
         ],
     ],
-
+    'stream' => [
+        'ssl' => [
+            'allow_self_signed' => true,
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+        ],
+    ]
 ];
