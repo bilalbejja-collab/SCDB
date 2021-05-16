@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -41,13 +40,14 @@ class AddInvoice extends Notification
      */
     public function toMail($notifiable)
     {
+        // hay que cambiar la url en producción
         $url = 'http://127.0.0.1:8000/invoices-details/' . $this->invoice_id;
 
         return (new MailMessage)
             ->greeting('Hola!')
-            ->subject('Se añadió nueva factura')
+            ->subject('NUEVA FACTURA!')
             ->line('Se añadió nueva factura')
             ->action('Mostrar la factura', $url)
-            ->line('Gracias por usar BillSoft para administrar tus facturas');
+            ->line('Gracias por usar SCDB para administrar sus facturas');
     }
 }

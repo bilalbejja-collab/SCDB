@@ -73,7 +73,7 @@
                     <a href="invoices/create" class="modal-effect btn btn-sm btn-primary" style="color:white"><i
                             class="fas fa-plus"></i>&nbsp; Añadir factura</a>
 
-                    <a class="modal-effect btn btn-sm btn-primary" href="{{ url('export_invoices') }}"
+                    <a class="modal-effect btn btn-sm btn-primary" href="{{ url('export-invoices') }}"
                         style="color:white"><i class="fas fa-file-download"></i>&nbsp; Exportación de Excel</a>
                 </div>
 

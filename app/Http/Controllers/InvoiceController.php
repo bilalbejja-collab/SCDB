@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\InvoicesExport;
 use App\Invoice;
 use App\InvoicesAttachments;
 use App\InvoicesDetails;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InvoiceController extends Controller
 {
@@ -295,5 +297,13 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::where('id', $id)->first();
         return view('invoices.print_invoice', compact('invoice'));
+    }
+
+    /**
+     * Exportar excel de facturas
+     */
+    public function export()
+    {
+        return Excel::download(new InvoicesExport, 'facturas.xlsx');
     }
 }

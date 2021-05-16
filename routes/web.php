@@ -58,4 +58,8 @@ Route::get('partial-paid-invoices', 'InvoiceController@partialPaidInvoices');
 Route::get('print-invoice/{id}','InvoiceController@printInvoice');
 
 
+Route::get('export-invoices/', 'InvoiceController@export');
+
+
+
 Route::get('/{page}', 'AdminController@index');
