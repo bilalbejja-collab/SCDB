@@ -141,7 +141,7 @@
                             <div class="col">
                                 <label>Fecha de pago</label>
                                 <input class="form-control fc-datepicker" name="payment_date" placeholder="YYYY-MM-DD"
-                                    type="text" required>
+                                    type="text" value="{{ date('Y-m-d') }}" required>
                             </div>
                         </div><br>
 
@@ -178,6 +178,9 @@
     <script src="{{ URL::asset('assets/js/form-elements.js') }}"></script>
 
     <script>
+        /**
+         * Asigna la fecha de hoy como fecha de pago
+         */
         var date = $('.fc-datepicker').datepicker({
             dateFormat: 'yy-mm-dd'
         }).val();
