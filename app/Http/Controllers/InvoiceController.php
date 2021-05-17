@@ -49,7 +49,6 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        /*
         $request->validate([
             'number' => 'required|unique:invoices|max:255',
         ], [
@@ -73,9 +72,9 @@ class InvoiceController extends Controller
             'value_status' => 2,
             'note' => $request->note,
         ]);
-*/
+
         $invoice_id = Invoice::latest()->first()->id;
-/*
+
         InvoicesDetails::create([
             'invoice_id' => $invoice_id,
             'invoice_number' => $request->number,
@@ -103,7 +102,7 @@ class InvoiceController extends Controller
             $imageName = $request->pic->getClientOriginalName();
             $request->pic->move(public_path('Attachments/' . $invoice_number), $imageName);
         }
-*/
+
         $user = User::first();
 
         // $user->notify(new AddInvoice($invoice_id));
