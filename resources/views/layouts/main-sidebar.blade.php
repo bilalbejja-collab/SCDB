@@ -140,13 +140,13 @@
 
                 <ul class="slide-menu">
                     <li>
-                        <a class="slide-item" href="{{ url('/' . ($page = '')) }}">
+                        <a class="slide-item" href="{{ url('/' . ($page = 'users')) }}">
                             Lista de usuarios
                         </a>
                     </li>
 
                     <li>
-                        <a class="slide-item" href="{{ url('/' . ($page = '')) }}">
+                        <a class="slide-item" href="{{ url('/' . ($page = 'roles')) }}">
                             Roles de usuarios
                         </a>
                     </li>

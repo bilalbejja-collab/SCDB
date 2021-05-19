@@ -3,11 +3,29 @@
 namespace App\Exports;
 
 use App\Invoice;
+use Maatwebsite\Excel\Concerns\WithDrawings;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class InvoicesExport implements FromCollection, WithHeadings
+class InvoicesExport implements WithDrawings, FromCollection, WithHeadings
 {
+    /**
+     * Añade el logo al excel
+     */
+    public function drawings()
+    {
+        $drawing = new Drawing();
+        $drawing->setName('Logo');
+        $drawing->setPath(public_path('/assets/img/brand/logo.png'));
+        $drawing->setCoordinates('B1');
+
+        // return $drawing;
+    }
+
+    /**
+     * Cabecera del excel
+     */
     public function headings(): array
     {
         return [
@@ -34,8 +52,8 @@ class InvoicesExport implements FromCollection, WithHeadings
     }
 
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
     public function collection()
     {
         return Invoice::all();

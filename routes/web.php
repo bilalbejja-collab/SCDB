@@ -55,11 +55,14 @@ Route::get('unpaid-invoices', 'InvoiceController@unpaidInvoices');
 
 Route::get('partial-paid-invoices', 'InvoiceController@partialPaidInvoices');
 
-Route::get('print-invoice/{id}','InvoiceController@printInvoice');
+Route::get('print-invoice/{id}', 'InvoiceController@printInvoice');
 
 
 Route::get('export-invoices/', 'InvoiceController@export');
 
-
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('roles', 'RoleController');
+    Route::resource('users', 'UserController');
+});
 
 Route::get('/{page}', 'AdminController@index');
