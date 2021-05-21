@@ -24,7 +24,6 @@
 <!-- row -->
 <div class="row">
 
-
     <div class="col-lg-12 col-md-12">
 
         @if (count($errors) > 0)
@@ -87,7 +86,7 @@
                     <div class="row row-sm mg-b-20">
                         <div class="col-lg-6">
                             <label class="form-label">Estado del usuario</label>
-                            <select name="Status" id="select-beast" class="form-control  nice-select  custom-select">
+                            <select name="status" id="select-beast" class="form-control  nice-select  custom-select">
                                 <option value="activo">activo</option>
                                 <option value="no activo">no activo</option>
                             </select>
@@ -98,7 +97,7 @@
                         <div class="col-xs-12 col-md-12">
                             <div class="form-group">
                                 <label class="form-label">Tipo de usuario</label>
-                                {!! Form::select('roles_name[]', $roles, [], ['class' => 'form-control', 'multiple']) !!}
+                                {!! Form::select('roles[]', $roles, [], ['class' => 'form-control', 'multiple']) !!}
                             </div>
                         </div>
                     </div>
@@ -117,8 +116,6 @@
 <!-- main-content closed -->
 @endsection
 @section('js')
-
-
 <!-- Internal Nice-select js-->
 <script src="{{ URL::asset('assets/plugins/jquery-nice-select/js/jquery.nice-select.js') }}"></script>
 <script src="{{ URL::asset('assets/plugins/jquery-nice-select/js/nice-select.js') }}"></script>

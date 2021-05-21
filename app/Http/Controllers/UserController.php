@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
-use DB;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -23,7 +23,6 @@ class UserController extends Controller
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
-
     /**
      * Show the form for creating a new resource.
      *
@@ -33,7 +32,7 @@ class UserController extends Controller
     {
         $roles = Role::pluck('name', 'name')->all();
 
-        return view('users.add_user', compact('roles'));
+        return view('users.create', compact('roles'));
     }
     /**
      * Store a newly created resource in storage.
@@ -47,16 +46,15 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-            'roles_name' => 'required'
+            'roles' => 'required'
         ]);
 
         $input = $request->all();
 
-
         $input['password'] = Hash::make($input['password']);
 
         $user = User::create($input);
-        $user->assignRole($request->input('roles_name'));
+        $user->assignRole($request->input('roles'));
         return redirect()->route('users.index')
             ->with('success', 'Se agregó el usuario con éxito');
     }

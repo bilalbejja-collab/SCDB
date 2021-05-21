@@ -66,9 +66,7 @@
                 <div class="d-flex justify-content-between">
                     <div class="col-lg-12 margin-tb">
                         <div class="pull-right">
-                            @can('Agregar role')
-                                <a class="btn btn-primary btn-sm" href="{{ route('roles.create') }}">Agregar</a>
-                            @endcan
+                            <a class="btn btn-primary btn-sm" href="{{ route('roles.create') }}">Agregar</a>
                         </div>
                     </div>
                     <br>
@@ -91,22 +89,16 @@
                                     <td>{{ ++$i }}</td>
                                     <td>{{ $role->name }}</td>
                                     <td>
-                                        @can('Mostrar role')
-                                            <a class="btn btn-success btn-sm"
-                                                href="{{ route('roles.show', $role->id) }}">Ver</a>
-                                        @endcan
+                                        <a class="btn btn-success btn-sm"
+                                            href="{{ route('roles.show', $role->id) }}">Ver</a>
 
-                                        @can('Modificar role')
-                                            <a class="btn btn-primary btn-sm"
-                                                href="{{ route('roles.edit', $role->id) }}">Modificar</a>
-                                        @endcan
+                                        <a class="btn btn-primary btn-sm"
+                                            href="{{ route('roles.edit', $role->id) }}">Modificar</a>
 
-                                        @if ($role->name !== 'owner')
-                                            @can('Eliminar role')
-                                                {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy', $role->id], 'style' => 'display:inline']) !!}
-                                                {!! Form::submit('Eliminar', ['class' => 'btn btn-danger btn-sm']) !!}
-                                                {!! Form::close() !!}
-                                            @endcan
+                                        @if ($role->name !== 'admin')
+                                            {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy', $role->id], 'style' => 'display:inline']) !!}
+                                            {!! Form::submit('Eliminar', ['class' => 'btn btn-danger btn-sm']) !!}
+                                            {!! Form::close() !!}
                                         @endif
 
 

@@ -39,51 +39,63 @@
 
             <li class="side-item side-item-category">Programa de facturación</li>
 
-            <li class="side-item side-item-category">Facturas</li>
+            @can('Facturas')
+                <li class="side-item side-item-category">Facturas</li>
 
-            <li class="slide">
-                <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . ($page = '#')) }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
-                        <path d="M0 0h24v24H0V0z" fill="none" />
-                        <path d="M13 4H6v16h12V9h-5V4zm3 14H8v-2h8v2zm0-6v2H8v-2h8z" opacity=".3" />
-                        <path
-                            d="M8 16h8v2H8zm0-4h8v2H8zm6-10H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z" />
-                    </svg>
-                    <span class="side-menu__label">Facturas</span>
-                    <i class="angle fe fe-chevron-down"></i>
-                </a>
+                <li class="slide">
+                    <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . ($page = '#')) }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0V0z" fill="none" />
+                            <path d="M13 4H6v16h12V9h-5V4zm3 14H8v-2h8v2zm0-6v2H8v-2h8z" opacity=".3" />
+                            <path
+                                d="M8 16h8v2H8zm0-4h8v2H8zm6-10H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z" />
+                        </svg>
+                        <span class="side-menu__label">Facturas</span>
+                        <i class="angle fe fe-chevron-down"></i>
+                    </a>
 
-                <ul class="slide-menu">
-                    <li>
-                        <a class="slide-item" href="{{ url('/' . ($page = 'invoices')) }}">
-                            Lista de facturas</a>
-                    </li>
+                    <ul class="slide-menu">
+                        @can('Lista de facturas')
+                            <li>
+                                <a class="slide-item" href="{{ url('/' . ($page = 'invoices')) }}">
+                                    Lista de facturas</a>
+                            </li>
+                        @endcan
 
-                    <li>
-                        <a class="slide-item" href="{{ url('/' . ($page = 'paid-invoices')) }}">
-                            Facturas pagadas
-                        </a>
-                    </li>
+                        @can('Facturas pagadas')
+                            <li>
+                                <a class="slide-item" href="{{ url('/' . ($page = 'paid-invoices')) }}">
+                                    Facturas pagadas
+                                </a>
+                            </li>
+                        @endcan
 
-                    <li>
-                        <a class="slide-item" href="{{ url('/' . ($page = 'unpaid-invoices')) }}">Facturas no
-                            pagadas
-                        </a>
-                    </li>
+                        @can('Facturas no pagadas')
+                            <li>
+                                <a class="slide-item" href="{{ url('/' . ($page = 'unpaid-invoices')) }}">Facturas no
+                                    pagadas
+                                </a>
+                            </li>
+                        @endcan
 
-                    <li>
-                        <a class="slide-item" href="{{ url('/' . ($page = 'partial-paid-invoices')) }}">
-                            Facturas pagadas parcialmente
-                        </a>
-                    </li>
+                        @can('Facturas pagadas parcialmente')
+                            <li>
+                                <a class="slide-item" href="{{ url('/' . ($page = 'partial-paid-invoices')) }}">
+                                    Facturas pagadas parcialmente
+                                </a>
+                            </li>
+                        @endcan
 
-                    <li>
-                        <a class="slide-item" href="{{ url('/' . ($page = 'archive')) }}">
-                            El archivo de facturas
-                        </a>
-                    </li>
-                </ul>
-            </li>
+                        @can('Archivo de facturas')
+                            <li>
+                                <a class="slide-item" href="{{ url('/' . ($page = 'archive')) }}">
+                                    El archivo de facturas
+                                </a>
+                            </li>
+                        @endcan
+                    </ul>
+                </li>
+            @endcan
 
             <li class="side-item side-item-category">Informes</li>
             <li class="slide">
