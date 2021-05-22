@@ -100,6 +100,7 @@
                             <div class="col">
                                 <label for="product" class="control-label">Producto</label>
                                 <select id="product" name="product" class="form-control">
+                                    <option value="" selected disabled>Selecciona el producto</option>
                                 </select>
                             </div>
 

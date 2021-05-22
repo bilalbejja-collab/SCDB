@@ -39,7 +39,7 @@
 
             <li class="side-item side-item-category">Programa de facturación</li>
 
-            @can('Facturas')
+            {{--@can('Facturas')--}}
                 <li class="side-item side-item-category">Facturas</li>
 
                 <li class="slide">
@@ -55,47 +55,47 @@
                     </a>
 
                     <ul class="slide-menu">
-                        @can('Lista de facturas')
+                        {{--@can('Lista de facturas')--}}
                             <li>
                                 <a class="slide-item" href="{{ url('/' . ($page = 'invoices')) }}">
                                     Lista de facturas</a>
                             </li>
-                        @endcan
+                        {{--@endcan--}}
 
-                        @can('Facturas pagadas')
+                        {{--@can('Facturas pagadas')--}}
                             <li>
                                 <a class="slide-item" href="{{ url('/' . ($page = 'paid-invoices')) }}">
                                     Facturas pagadas
                                 </a>
                             </li>
-                        @endcan
+                        {{--@endcan--}}
 
-                        @can('Facturas no pagadas')
+                        {{--@can('Facturas no pagadas')--}}
                             <li>
                                 <a class="slide-item" href="{{ url('/' . ($page = 'unpaid-invoices')) }}">Facturas no
                                     pagadas
                                 </a>
                             </li>
-                        @endcan
+                        {{--@endcan--}}
 
-                        @can('Facturas pagadas parcialmente')
+                        {{--@can('Facturas pagadas parcialmente')--}}
                             <li>
                                 <a class="slide-item" href="{{ url('/' . ($page = 'partial-paid-invoices')) }}">
                                     Facturas pagadas parcialmente
                                 </a>
                             </li>
-                        @endcan
+                        {{--@endcan--}}
 
-                        @can('Archivo de facturas')
+                        {{--@can('Archivo de facturas')--}}
                             <li>
                                 <a class="slide-item" href="{{ url('/' . ($page = 'archive')) }}">
                                     El archivo de facturas
                                 </a>
                             </li>
-                        @endcan
+                        {{--@endcan--}}
                     </ul>
                 </li>
-            @endcan
+            {{--@endcan--}}
 
             <li class="side-item side-item-category">Informes</li>
             <li class="slide">
