@@ -43,7 +43,7 @@ class PermissionTableSeeder extends Seeder
             'Modificar usuario',
             'Eliminar usuario',
 
-            'Mostrar role',
+            'Mostrar roles',
             'Agregar role',
             'Modificar role',
             'Eliminar role',
