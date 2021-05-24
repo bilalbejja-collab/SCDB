@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'roles', 'status'
+        'name', 'email', 'password', 'roles_name', 'status'
     ];
 
     /**
@@ -36,7 +36,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        // entra a la bd como array
-        'roles' => 'array'
+        // entra a la bd como array aunque en la migration esta como text
+        'roles_name' => 'array'
     ];
 }
