@@ -79,10 +79,15 @@
                 <div class="row row-sm mg-b-20">
                     <div class="col-lg-6">
                         <label class="form-label">Estado del usuario</label>
-                        <select name="Status" id="select-beast" class="form-control  nice-select  custom-select">
-                            {{-- <option value="{{ $user->Status }}">{{ $user->Status }}</option> --}}
-                            <option value="activo">activo</option>
-                            <option value="no activo">no activo</option>
+                        <select name="status" id="select-beast" class="form-control nice-select custom-select">
+                            @if ($user->status == 'activo')
+                                <option value="{{ $user->status }}" selected>{{ $user->status }}</option>
+                                <option value="no activo">no activo</option>
+                            @else
+                                <option value="{{ $user->status }}" selected>{{ $user->status }}</option>
+                                <option value="activo">activo</option>
+                            @endif
+
                         </select>
                     </div>
                 </div>
@@ -91,7 +96,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong>Tipo de usuario</strong>
-                            {!! Form::select('roles[]', $roles, $userRole, ['class' => 'form-control', 'multiple']) !!}
+                            {!! Form::select('roles_name[]', $roles, $userRole, ['class' => 'form-control', 'multiple']) !!}
                         </div>
                     </div>
                 </div>

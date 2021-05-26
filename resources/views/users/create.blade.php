@@ -97,7 +97,7 @@
                         <div class="col-xs-12 col-md-12">
                             <div class="form-group">
                                 <label class="form-label">Tipo de usuario</label>
-                                {!! Form::select('roles[]', $roles, [], ['class' => 'form-control', 'multiple']) !!}
+                                {!! Form::select('roles_name[]', $roles, [], ['class' => 'form-control', 'multiple']) !!}
                             </div>
                         </div>
                     </div>
