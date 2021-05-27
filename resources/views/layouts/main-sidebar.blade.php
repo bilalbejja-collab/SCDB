@@ -121,13 +121,13 @@
 
                     <ul class="slide-menu">
                         <li>
-                            <a class="slide-item" href="{{ url('/' . ($page = '')) }}">
+                            <a class="slide-item" href="{{ url('/' . ($page = 'invoices-report')) }}">
                                 Informes de facturación
                             </a>
                         </li>
 
                         <li>
-                            <a class="slide-item" href="{{ url('/' . ($page = '')) }}">
+                            <a class="slide-item" href="{{ url('/' . ($page = 'customers-report')) }}">
                                 Informes de clientes
                             </a>
                         </li>

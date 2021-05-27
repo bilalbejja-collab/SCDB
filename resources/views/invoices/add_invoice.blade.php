@@ -87,7 +87,7 @@
                         <div class="row">
                             <div class="col">
                                 <label for="section" class="control-label">Sección</label>
-                                <select name="section" class="form-control" onclick="console.log($(this).val())"
+                                <select name="section" class="form-control select2" onclick="console.log($(this).val())"
                                     onchange="console.log('está cambiando')">
 
                                     <option value="" selected disabled>Selecciona la sección</option>
@@ -99,7 +99,7 @@
 
                             <div class="col">
                                 <label for="product" class="control-label">Producto</label>
-                                <select id="product" name="product" class="form-control">
+                                <select id="product" name="product" class="form-control select2">
                                     <option value="" selected disabled>Selecciona el producto</option>
                                 </select>
                             </div>
@@ -132,7 +132,7 @@
 
                             <div class="col">
                                 <label for="IVA" class="control-label">La tasa del impuestos (IVA)</label>
-                                <select name="IVA" id="IVA" class="form-control" onchange="myFunction()">
+                                <select name="IVA" id="IVA" class="form-control select2" onchange="myFunction()">
                                     <!--placeholder-->
                                     <option value="" selected disabled>Seleccione IVA</option>
                                     <option value=" 5%">5%</option>

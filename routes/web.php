@@ -65,4 +65,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', 'UserController');
 });
 
+Route::get('invoices-report', 'InvoicesReportController@index');
+
+Route::post('search-invoices', 'InvoicesReportController@searchInvoices');
+
+
 Route::get('/{page}', 'AdminController@index');

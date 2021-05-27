@@ -27,7 +27,7 @@
                                     </div>
                                     <div class="card-sigin">
                                         <div class="main-signup-header">
-                                            <h2>Bienvenido</h2>
+                                            <h2>Bienvenido !</h2>
                                             <h5 class="font-weight-semibold mb-4">Iniciar la sesión </h5>
                                             <form method="POST" action="{{ route('login') }}">
                                                 @csrf
@@ -84,10 +84,10 @@
                     <!-- End -->
                 </div>
             </div>
-            <div class="col-md-6 col-lg-6 col-xl-7 d-none d-md-flex bg-danger-transparent">
+            <div class="col-md-6 col-lg-6 col-xl-7 d-none d-md-flex bg-light-transparent">
                 <div class="row wd-100p mx-auto text-center">
                     <div class="col-md-12 col-lg-12 col-xl-12 my-auto mx-auto wd-100p">
-                        <img src="{{ URL::asset('assets/img/media/login.png') }}"
+                        <img src="{{ URL::asset('assets/img/brand/favicon.png') }}"
                             class="my-auto ht-xl-80p wd-md-100p wd-xl-80p mx-auto" alt="logo">
                     </div>
                 </div>
