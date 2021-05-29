@@ -40,8 +40,9 @@ class AddInvoice extends Notification
      */
     public function toMail($notifiable)
     {
-        // hay que cambiar la url en producción
-        $url = 'http://127.0.0.1:8000/invoices-details/' . $this->invoice_id;
+        $url = 'http://app-scdb.herokuapp.com/invoices-details/' . $this->invoice_id;
+        // en local
+        // $url = 'http://127.0.0.1:8000/invoices-details/' . $this->invoice_id;
 
         return (new MailMessage)
             ->greeting('Hola!')
