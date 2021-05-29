@@ -67,7 +67,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="example1" class="table table-bordered key-buttons text-md-nowrap" data-page-length='50'>
+                        <table id="example1" class="table key-buttons text-md-nowrap table-striped table-bordered" data-page-length='50'>
                             <thead>
                                 <tr>
                                     <th class="border-bottom-0">#</th>
@@ -95,63 +95,73 @@
                                     @endphp
                                     <tr>
                                         <td>{{ $i }}</td>
-                                        <td>{{ $invoice->invoice_number }} </td>
-                                        <td>{{ $invoice->invoice_Date }}</td>
-                                        <td>{{ $invoice->Due_date }}</td>
+                                        <td>{{ $invoice->number }} </td>
+                                        <td>{{ $invoice->date }}</td>
+                                        <td>{{ $invoice->due_date }}</td>
                                         <td>{{ $invoice->product }}</td>
-                                        <td><a
-                                                href="{{ url('InvoicesDetails') }}/{{ $invoice->id }}">{{ $invoice->section->section_name }}</a>
-                                        </td>
-                                        <td>{{ $invoice->Discount }}</td>
-                                        <td>{{ $invoice->Rate_VAT }}</td>
-                                        <td>{{ $invoice->Value_VAT }}</td>
-                                        <td>{{ $invoice->Total }}</td>
                                         <td>
-                                            @if ($invoice->Value_Status == 1)
-                                                <span class="text-success">{{ $invoice->Status }}</span>
-                                            @elseif($invoice->Value_Status == 2)
-                                                <span class="text-danger">{{ $invoice->Status }}</span>
-                                            @else
-                                                <span class="text-warning">{{ $invoice->Status }}</span>
-                                            @endif
-
+                                            <a
+                                                href="{{ url('invoices-details') }}/{{ $invoice->id }}">{{ $invoice->section->name }}</a>
                                         </td>
-
+                                        <td>{{ $invoice->discount }}</td>
+                                        <td>{{ $invoice->rate_vat }}</td>
+                                        <td>{{ $invoice->value_vat }}</td>
+                                        <td>{{ $invoice->total }}</td>
+                                        <td>
+                                            @if ($invoice->value_status == 1)
+                                                <span class="text-success">{{ $invoice->status }}</span>
+                                            @elseif($invoice->value_status == 2)
+                                                <span class="text-danger">{{ $invoice->status }}</span>
+                                            @else
+                                                <span class="text-warning">{{ $invoice->status }}</span>
+                                            @endif
+                                        </td>
                                         <td>{{ $invoice->note }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button aria-expanded="false" aria-haspopup="true"
                                                     class="btn ripple btn-primary btn-sm" data-toggle="dropdown"
-                                                    type="button">Procesos<i class="fas fa-caret-down ml-1"></i></button>
+                                                    type="button">
+                                                    Procesos<i class="fas fa-caret-down ml-1"></i>
+                                                </button>
                                                 <div class="dropdown-menu tx-13">
                                                     <a class="dropdown-item"
-                                                        href=" {{ url('edit_invoice') }}/{{ $invoice->id }}">Modificar
-                                                        la factura</a>
+                                                        href=" {{ url('edit-invoice') }}/{{ $invoice->id }}">
+                                                        Modificar la factura
+                                                    </a>
 
                                                     <a class="dropdown-item" href="#"
                                                         data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
                                                         data-target="#delete_invoice"><i
-                                                            class="text-danger fas fa-trash-alt"></i>&nbsp;&nbsp;Eliminar la
-                                                        factura</a>
+                                                            class="text-danger fas fa-trash-alt"></i>
+                                                        &nbsp;&nbsp;Eliminar la factura
+                                                    </a>
 
-                                                    <a class="dropdown-item"
-                                                        href="{{ URL::route('Status_show', [$invoice->id]) }}"><i
-                                                            class=" text-success fas fa-money-bill"></i>&nbsp;&nbsp;Cambiar
-                                                        estado de pago</a>
+                                                    {{-- cambiar estado solo en casos 'no pagada' y 'pagada parcialmente' --}}
+                                                    @if ($invoice->value_status != 1)
+                                                        <a class="dropdown-item"
+                                                            href="{{ URL::route('status-show', [$invoice->id]) }}"><i
+                                                                class=" text-success fas fa-money-bill"></i>
+                                                            &nbsp;&nbsp; Cambiar el estado de pago
+                                                        </a>
+                                                    @endif
 
                                                     <a class="dropdown-item" href="#"
                                                         data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
-                                                        data-target="#Transfer_invoice"><i
-                                                            class="text-warning fas fa-exchange-alt"></i>&nbsp;&nbsp;Transferir
-                                                        al archivo</a>
+                                                        data-target="#transfer_invoice"><i
+                                                            class="text-warning fas fa-exchange-alt"></i>
+                                                        &nbsp;&nbsp; Transferir al archivo
+                                                    </a>
 
+                                                    <a class="dropdown-item" href="print-invoice/{{ $invoice->id }}"><i
+                                                            class="text-success fas fa-print"></i>
+                                                        &nbsp;&nbsp; Imprimir la factura
+                                                    </a>
                                                 </div>
                                             </div>
-
                                         </td>
                                     </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
                     </div>
@@ -161,7 +171,7 @@
         <!--/div-->
     </div>
 
-    <!-- Borrar la factura -->
+    <!-- Eliminar factura -->
     <div class="modal fade" id="delete_invoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -171,6 +181,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
+                    {{-- Si hay algun problema me lleva a 'test' --}}
                     <form action="{{ route('invoices.destroy', 'test') }}" method="post">
                         {{ method_field('delete') }}
                         {{ csrf_field() }}
@@ -190,7 +201,7 @@
 
 
     <!-- Archivar factura -->
-    <div class="modal fade" id="Transfer_invoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="transfer_invoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -204,7 +215,7 @@
                         {{ csrf_field() }}
                 </div>
                 <div class="modal-body">
-                    ¿Estás seguro del proceso de archivar la factura?
+                    ¿Está seguro del proceso de archivo?
                     <input type="hidden" name="invoice_id" id="invoice_id" value="">
                     <input type="hidden" name="id_page" id="id_page" value="2">
 
@@ -250,6 +261,9 @@
     <script src="{{ URL::asset('assets/plugins/notify/js/notifit-custom.js') }}"></script>
 
     <script>
+        /*
+         * Asigna el id al input hidden en el modal de eliminar
+         */
         $('#delete_invoice').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var invoice_id = button.data('invoice_id')
@@ -260,7 +274,10 @@
     </script>
 
     <script>
-        $('#Transfer_invoice').on('show.bs.modal', function(event) {
+        /*
+         * Asigna el id al input hidden en el modal de archivar
+         */
+        $('#transfer_invoice').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var invoice_id = button.data('invoice_id')
             var modal = $(this)
@@ -268,6 +285,4 @@
         })
 
     </script>
-
-
 @endsection

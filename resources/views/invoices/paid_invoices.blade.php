@@ -66,7 +66,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="example1" class="table table-bordered key-buttons text-md-nowrap" data-page-length='50'>
+                        <table id="example1" class="table key-buttons text-md-nowrap table-striped table-bordered" data-page-length='50'>
                             <thead>
                                 <tr>
                                     <th class="border-bottom-0">#</th>
@@ -115,7 +115,6 @@
                                                 <span class="text-warning">{{ $invoice->status }}</span>
                                             @endif
                                         </td>
-
                                         <td>{{ $invoice->note }}</td>
                                         <td>
                                             <div class="dropdown">
@@ -229,6 +228,7 @@
             </div>
         </div>
     </div>
+
     </div>
     <!-- row closed -->
     </div>

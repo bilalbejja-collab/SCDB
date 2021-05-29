@@ -141,7 +141,7 @@
                             </a>
                             <a href="#" class="p-3 d-flex border-bottom">
                                 <div class="drop-img cover-image"
-                                    data-image-src="{{ URL::asset('assets/img/faces/9.jpg') }}">
+                                    data-image-src="{{ URL::asset('assets/img/faces/avatar.jpg') }}">
                                     <span class="avatar-status bg-teal"></span>
                                 </div>
                                 <div class="wd-90p">
@@ -293,14 +293,14 @@
                 </div>
                 <div class="dropdown main-profile-menu nav nav-item nav-link">
                     <a class="profile-user d-flex" href=""><img alt=""
-                            src="{{ URL::asset('assets/img/faces/6.jpg') }}"></a>
+                            src="{{ URL::asset('assets/img/faces/avatar.jpg') }}"></a>
                     <div class="dropdown-menu">
                         <div class="main-header-profile bg-primary p-3">
                             <div class="d-flex wd-100p">
                                 <div class="main-img-user"><img alt=""
-                                        src="{{ URL::asset('assets/img/faces/6.jpg') }}" class=""></div>
+                                        src="{{ URL::asset('assets/img/faces/avatar.jpg') }}" class=""></div>
                                 <div class="mr-3 my-auto">
-                                    <h6>{{-- Auth::user()->name --}}</h6><span>{{-- Auth::user()->email --}}</span>
+                                    <h6>{{ Auth::user()->name }}</h6><span>{{ Auth::user()->email }}</span>
                                 </div>
                             </div>
                         </div>

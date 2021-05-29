@@ -69,5 +69,9 @@ Route::get('invoices-report', 'InvoicesReportController@index');
 
 Route::post('search-invoices', 'InvoicesReportController@searchInvoices');
 
+Route::get('customers-report', 'CustomersReportController@index')->name("customers-report");
+
+Route::post('search-customers', 'CustomersReportController@searchCustomers');
+
 
 Route::get('/{page}', 'AdminController@index');
