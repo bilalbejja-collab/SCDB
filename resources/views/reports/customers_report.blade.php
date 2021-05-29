@@ -11,6 +11,8 @@
     <!-- Internal Spectrum-colorpicker css -->
     <link href="{{ URL::asset('assets/plugins/spectrum-colorpicker/spectrum.css') }}" rel="stylesheet">
 
+    <!-- Internal Select2 css -->
+    <link href="{{ URL::asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('title')
