@@ -173,17 +173,16 @@
         </div>
     </div>
     <!-- row closed -->
-    {{-- <!-- row opened -->
+    <!-- row opened -->
     <div class="row row-sm row-deck">
         <div class="col-md-12 col-lg-12 col-xl-7">
             <div class="card">
                 <div class="card-header bg-transparent pd-b-0 pd-t-20 bd-b-0">
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title mb-0">Porcentaje estadístico de facturas</h4>
-                        <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
                 </div>
-                <div class="card-body" style="width: 70%">
+                <div class="card-body" style="width: 100%">
                     {!! $chartjs->render() !!}
                 </div>
             </div>
@@ -196,7 +195,7 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
     <!-- /row -->
     </div>
     </div>
