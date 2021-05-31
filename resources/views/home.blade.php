@@ -190,7 +190,7 @@
         <div class="col-lg-12 col-xl-5">
             <div class="card card-dashboard-map-one">
                 <label class="main-content-label">Porcentaje estadístico de facturas</label>
-                <div class="" style="width: 100%">
+                <div class="" style="width: 100%; margin-top: 20px;">
                     {!! $chartjs_2->render() !!}
                 </div>
             </div>

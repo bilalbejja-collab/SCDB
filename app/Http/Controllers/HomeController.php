@@ -63,7 +63,7 @@ class HomeController extends Controller
 
         $chartjs_2 = app()->chartjs
             ->name('pieChartTest')
-            ->type('pie')
+            ->type('doughnut')
             ->size(['width' => 340, 'height' => 200])
             ->labels(['Facturas no pagadas', 'Facturas pagadas', 'Facturas pagadas parcialmente'])
             ->datasets([
