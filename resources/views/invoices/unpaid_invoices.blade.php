@@ -127,7 +127,8 @@
                                                 <div class="dropdown-menu tx-13">
                                                     <a class="dropdown-item"
                                                         href=" {{ url('edit-invoice') }}/{{ $invoice->id }}">
-                                                        Modificar la factura
+                                                        <i class="text-info fas fa-edit"></i>
+                                                        &nbsp;&nbsp;Modificar la factura
                                                     </a>
 
                                                     <a class="dropdown-item" href="#"
@@ -150,12 +151,12 @@
                                                         data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
                                                         data-target="#transfer_invoice"><i
                                                             class="text-warning fas fa-exchange-alt"></i>
-                                                        &nbsp;&nbsp; Transferir al archivo
+                                                        &nbsp;&nbsp;Transferir al archivo
                                                     </a>
 
                                                     <a class="dropdown-item" href="print-invoice/{{ $invoice->id }}"><i
                                                             class="text-success fas fa-print"></i>
-                                                        &nbsp;&nbsp; Imprimir la factura
+                                                        &nbsp;&nbsp;Imprimir la factura
                                                     </a>
                                                 </div>
                                             </div>

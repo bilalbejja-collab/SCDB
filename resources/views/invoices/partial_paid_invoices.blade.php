@@ -66,7 +66,8 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="example1" class="table key-buttons text-md-nowrap table-striped table-bordered" data-page-length='50'>
+                        <table id="example1" class="table key-buttons text-md-nowrap table-striped table-bordered"
+                            data-page-length='50'>
                             <thead>
                                 <tr>
                                     <th class="border-bottom-0">#</th>
@@ -124,25 +125,27 @@
                                                     type="button">Procesos<i class="fas fa-caret-down ml-1"></i></button>
                                                 <div class="dropdown-menu tx-13">
                                                     <a class="dropdown-item"
-                                                        href=" {{ url('edit-invoice') }}/{{ $invoice->id }}">Editar la
-                                                        factura</a>
+                                                        href=" {{ url('edit-invoice') }}/{{ $invoice->id }}">
+                                                        <i class="text-info fas fa-edit"></i>
+                                                        &nbsp;&nbsp;Modificar la factura
+                                                    </a>
 
                                                     <a class="dropdown-item" href="#"
                                                         data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
-                                                        data-target="#delete_invoice"><i
-                                                            class="text-danger fas fa-trash-alt"></i>&nbsp;&nbsp;Borrar la
-                                                        factura</a>
+                                                        data-target="#delete_invoice">
+                                                        <i class="text-danger fas fa-trash-alt"></i>
+                                                        &nbsp;&nbsp;Borrar la factura</a>
 
                                                     <a class="dropdown-item"
-                                                        href="{{ URL::route('status-show', [$invoice->id]) }}"><i
-                                                            class=" text-success fas fa-money-bill"></i>&nbsp;&nbsp;Cambiar
-                                                        estado de pago</a>
+                                                        href="{{ URL::route('status-show', [$invoice->id]) }}">
+                                                        <i class=" text-success fas fa-money-bill"></i>
+                                                        &nbsp;&nbsp;Cambiar estado de pago</a>
 
                                                     <a class="dropdown-item" href="#"
                                                         data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
-                                                        data-target="#transfer_invoice"><i
-                                                            class="text-warning fas fa-exchange-alt"></i>
-                                                        &nbsp;&nbsp; Transferir al archivo
+                                                        data-target="#transfer_invoice">
+                                                        <i class="text-warning fas fa-exchange-alt"></i>
+                                                        &nbsp;&nbsp;Transferir al archivo
                                                     </a>
 
                                                 </div>

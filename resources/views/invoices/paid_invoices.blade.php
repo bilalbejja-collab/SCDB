@@ -126,7 +126,8 @@
                                                 <div class="dropdown-menu tx-13">
                                                     <a class="dropdown-item"
                                                         href=" {{ url('edit-invoice') }}/{{ $invoice->id }}">
-                                                        Modificar la factura
+                                                        <i class="text-info fas fa-edit"></i>
+                                                        &nbsp;&nbsp;Modificar la factura
                                                     </a>
 
                                                     <a class="dropdown-item" href="#"
@@ -141,7 +142,7 @@
                                                         <a class="dropdown-item"
                                                             href="{{ URL::route('status-show', [$invoice->id]) }}"><i
                                                                 class=" text-success fas fa-money-bill"></i>
-                                                            &nbsp;&nbsp; Cambiar el estado de pago
+                                                            &nbsp;&nbsp;Cambiar el estado de pago
                                                         </a>
                                                     @endif
 
@@ -149,12 +150,12 @@
                                                         data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
                                                         data-target="#transfer_invoice"><i
                                                             class="text-warning fas fa-exchange-alt"></i>
-                                                        &nbsp;&nbsp; Transferir al archivo
+                                                        &nbsp;&nbsp;Transferir al archivo
                                                     </a>
 
                                                     <a class="dropdown-item" href="print-invoice/{{ $invoice->id }}"><i
                                                             class="text-success fas fa-print"></i>
-                                                        &nbsp;&nbsp; Imprimir la factura
+                                                        &nbsp;&nbsp;Imprimir la factura
                                                     </a>
                                                 </div>
                                             </div>
