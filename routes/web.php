@@ -73,5 +73,7 @@ Route::get('customers-report', 'CustomersReportController@index')->name("custome
 
 Route::post('search-customers', 'CustomersReportController@searchCustomers');
 
+Route::get('mark-as-read-all','InvoiceController@markAsReadAll')->name('mark-as-read-all');
+
 
 Route::get('/{page}', 'AdminController@index');

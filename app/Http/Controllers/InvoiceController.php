@@ -73,7 +73,6 @@ class InvoiceController extends Controller
             'note' => $request->note,
         ]);
 
-        //$invoice_id = Invoice::latest()->first()->id;
         $invoice = Invoice::latest()->first();
 
         InvoicesDetails::create([
@@ -106,7 +105,6 @@ class InvoiceController extends Controller
 
         $user = User::first();
 
-        // $user->notify(new NewInvoice($invoice));
         Notification::send($user, new NewInvoice($invoice));
 
         session()->flash('Add', 'Se agregó la factura con éxito');
@@ -305,5 +303,18 @@ class InvoiceController extends Controller
     public function export()
     {
         return Excel::download(new InvoicesExport, 'facturas.xlsx');
+    }
+
+    /**
+     * Establece leidas todas las notidicaciones
+     */
+    public function markAsReadAll(Request $request)
+    {
+        $userUnreadNotification = auth()->user()->unreadNotifications;
+
+        if ($userUnreadNotification) {
+            $userUnreadNotification->markAsRead();
+            return back();
+        }
     }
 }
