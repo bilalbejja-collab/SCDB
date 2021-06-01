@@ -7,12 +7,12 @@ use App\Invoice;
 use App\InvoicesAttachments;
 use App\InvoicesDetails;
 use App\Notifications\AddInvoice;
+use App\Notifications\NewInvoice;
 use App\Section;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
@@ -73,10 +73,11 @@ class InvoiceController extends Controller
             'note' => $request->note,
         ]);
 
-        $invoice_id = Invoice::latest()->first()->id;
+        //$invoice_id = Invoice::latest()->first()->id;
+        $invoice = Invoice::latest()->first();
 
         InvoicesDetails::create([
-            'invoice_id' => $invoice_id,
+            'invoice_id' => $invoice->id,
             'invoice_number' => $request->number,
             'product' => $request->product,
             'section' => $request->section,
@@ -95,7 +96,7 @@ class InvoiceController extends Controller
             $attachment->file_name = $file_name;
             $attachment->invoice_number = $invoice_number;
             $attachment->created_by = Auth::user()->name;
-            $attachment->invoice_id = $invoice_id;
+            $attachment->invoice_id = $invoice->id;
             $attachment->save();
 
             // mover la imagen
@@ -105,8 +106,8 @@ class InvoiceController extends Controller
 
         $user = User::first();
 
-        // $user->notify(new AddInvoice($invoice_id));
-        Notification::send($user, new AddInvoice($invoice_id));
+        // $user->notify(new NewInvoice($invoice));
+        Notification::send($user, new NewInvoice($invoice));
 
         session()->flash('Add', 'Se agregó la factura con éxito');
         return back();
