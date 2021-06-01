@@ -109,7 +109,7 @@
                                     @endforeach
                                 @else
                                     <div class="text-center">
-                                        No hay mensajes
+                                        No hay notificaciones
                                     </div>
                                 @endif
                             </div>
@@ -130,8 +130,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="dropdown-item" href="http://app-scdb.herokuapp.com/{{ Auth::user()->id }}/edit">
-                            <i class="bx bx-cog"></i>Edit Profile
+                        <a class="dropdown-item" href="http://app-scdb.herokuapp.com/users/{{ Auth::user()->id }}/edit">
+                            <i class="bx bx-cog"></i>Editar Profil
                         </a>
                         <a class="dropdown-item" href="#">
                             <i class="bx bx-envelope"></i>
