@@ -18,9 +18,8 @@ class InvoicesExport implements WithDrawings, FromCollection, WithHeadings
         $drawing = new Drawing();
         $drawing->setName('Logo');
         $drawing->setPath(public_path('/assets/img/brand/logo.png'));
-        $drawing->setCoordinates('B1');
-
-        // return $drawing;
+        $drawing->setCoordinates('V1');
+        return $drawing;
     }
 
     /**
