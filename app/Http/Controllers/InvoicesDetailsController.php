@@ -39,7 +39,7 @@ class InvoicesDetailsController extends Controller
         // borrar en el disco
         Storage::disk('public_uploads')->delete($request->invoice_number . '/' . $request->file_name);
 
-        session()->flash('delete', 'El archivo adjunto se ha eliminado correctamente');
+        session()->flash('Delete', 'El archivo adjunto se ha eliminado correctamente');
         return back();
     }
 
