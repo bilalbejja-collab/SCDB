@@ -18,6 +18,15 @@ class InvoicesDetailsController extends Controller
      */
     public function edit($id)
     {
+        $userUnreadNotification = auth()->user()->unreadNotifications;
+
+        // marcar como leida una determinada notificación
+        foreach ($userUnreadNotification as $notification) {
+            if ($notification->data['id'] == $id) {
+                $notification->markAsRead();
+            }
+        }
+
         $invoice = Invoice::where('id', $id)->first();
         $details  = InvoicesDetails::where('invoice_id', $id)->get();
         $attachments  = InvoicesAttachments::where('invoice_id', $id)->get();
