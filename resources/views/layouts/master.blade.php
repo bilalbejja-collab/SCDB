@@ -34,10 +34,11 @@
 
 <script>
     /**
-     * Actualiza el las notificaciones
+     * Actualiza las notificaciones cada 5 segundos
      */
     setInterval(function() {
         $("#notifications_count").load(window.location.href + " #notifications_count");
         $("#unreadNotifications").load(window.location.href + " #unreadNotifications");
+        $("#alerta").load(window.location.href + " #alerta");
     }, 5000);
 </script>

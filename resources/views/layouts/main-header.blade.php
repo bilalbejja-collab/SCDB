@@ -64,10 +64,11 @@
                                 <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                                 <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
                             </svg>
-                            @if (count(auth()->user()->unreadNotifications) > 0)
-                                <span class=" pulse"></span>
-                            @endif
-
+                            <div id="alerta">
+                                @if (count(auth()->user()->unreadNotifications) > 0)
+                                    <span class="pulse"></span>
+                                @endif
+                            </div>
                         </a>
                         <div class="dropdown-menu">
                             <div class="menu-header-content bg-primary">
@@ -78,7 +79,7 @@
                                             href="\mark-as-read-all">Establecer leídos todos</a></span>
                                 </div>
                                 <p class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12 ">
-                                    {{-- Notifications unreaded count--}}
+                                    {{-- Notifications unreaded count --}}
                                 <h6 style="color: yellow" id="notifications_count">
                                     {{ auth()->user()->unreadNotifications->count() }}
                                 </h6>
@@ -130,7 +131,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="dropdown-item" href="http://app-scdb.herokuapp.com/users/{{ Auth::user()->id }}/edit">
+                        <a class="dropdown-item"
+                            href="http://app-scdb.herokuapp.com/users/{{ Auth::user()->id }}/edit">
                             <i class="bx bx-cog"></i>Editar Profil
                         </a>
                         <a class="dropdown-item" href="#">
