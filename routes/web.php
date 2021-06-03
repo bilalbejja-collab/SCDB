@@ -24,10 +24,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('invoices', 'InvoiceController');
-
 Route::resource('sections', 'SectionController');
-
 Route::resource('products', 'ProductController');
+Route::resource('roles', 'RoleController');
+Route::resource('users', 'UserController');
 
 Route::resource('invoice-attachments', 'InvoicesAttachmentsController');
 
@@ -60,11 +60,6 @@ Route::get('print-invoice/{id}', 'InvoiceController@printInvoice');
 
 Route::get('export-invoices/', 'InvoiceController@export');
 
-Route::group(['middleware' => ['auth']], function () {
-    Route::resource('roles', 'RoleController');
-    Route::resource('users', 'UserController');
-});
-
 Route::get('invoices-report', 'InvoicesReportController@index');
 
 Route::post('search-invoices', 'InvoicesReportController@searchInvoices');
@@ -73,7 +68,7 @@ Route::get('customers-report', 'CustomersReportController@index')->name("custome
 
 Route::post('search-customers', 'CustomersReportController@searchCustomers');
 
-Route::get('mark-as-read-all','InvoiceController@markAsReadAll')->name('mark-as-read-all');
+Route::get('mark-as-read-all', 'InvoiceController@markAsReadAll')->name('mark-as-read-all');
 
 
 Route::get('/{page}', 'AdminController@index');

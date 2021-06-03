@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 class CustomersReportController extends Controller
 {
     /**
+     * Only authenticated users can access.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * index customers report
      */
     public function index()

@@ -20,6 +20,14 @@ use Maatwebsite\Excel\Facades\Excel;
 class InvoiceController extends Controller
 {
     /**
+     * Only authenticated users can access.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

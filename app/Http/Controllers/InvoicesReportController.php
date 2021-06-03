@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 class InvoicesReportController extends Controller
 {
     /**
+     * Only authenticated users can access.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * index
      */
     public function index()

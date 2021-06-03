@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\Storage;
 class InvoicesDetailsController extends Controller
 {
     /**
+     * Only authenticated users can access.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\InvoicesDetails  $invoicesDetails

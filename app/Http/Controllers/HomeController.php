@@ -8,9 +8,7 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * Only authenticated users can access.
      */
     public function __construct()
     {
