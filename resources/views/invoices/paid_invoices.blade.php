@@ -94,14 +94,14 @@
                                     @endphp
                                     <tr>
                                         <td>{{ $i }}</td>
-                                        <td>{{ $invoice->number }} </td>
+                                        <td>
+                                            <a href="{{ url('invoices-details') }}/{{ $invoice->id }}">
+                                                {{ $invoice->number }} </a>
+                                        </td>
                                         <td>{{ $invoice->date }}</td>
                                         <td>{{ $invoice->due_date }}</td>
                                         <td>{{ $invoice->product }}</td>
-                                        <td>
-                                            <a
-                                                href="{{ url('invoices-details') }}/{{ $invoice->id }}">{{ $invoice->section->name }}</a>
-                                        </td>
+                                        <td>{{ $invoice->section->name }}</td>
                                         <td>{{ $invoice->discount }}</td>
                                         <td>{{ $invoice->rate_vat }}</td>
                                         <td>{{ $invoice->value_vat }}</td>
