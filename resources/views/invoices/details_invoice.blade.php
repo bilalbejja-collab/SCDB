@@ -162,6 +162,10 @@
                                                             <th>Sección</th>
                                                             <th>Estado de pago</th>
                                                             <th>Fecha de pago</th>
+                                                            <!-- En caso de pagada parcialmente -->
+                                                            @if ($invoice->value_status == 3)
+                                                                <th>Cantidad restante</th>
+                                                            @endif
                                                             <th>Observaciones</th>
                                                             <th>Fecha de adición</th>
                                                             <th>Usuario</th>
@@ -191,6 +195,10 @@
                                                                         </td>
                                                                     @endif
                                                                     <td>{{ $detail->payment_date }}</td>
+                                                                    <!-- En caso de pagada parcialmente -->
+                                                                    @if ($invoice->value_status == 3)
+                                                                        <td>Cantidad restante</td>
+                                                                    @endif
                                                                     <td>{{ $detail->note }}</td>
                                                                     <td>{{ $detail->created_at }}</td>
                                                                     <td>{{ $detail->user }}</td>
