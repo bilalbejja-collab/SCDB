@@ -26,7 +26,7 @@ class InvoiceController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -241,11 +241,12 @@ class InvoiceController extends Controller
                 'section' => $request->section,
                 'status' => $request->status,
                 'value_status' => 1,
-                'note' => $request->note,
                 'payment_date' => $request->payment_date,
+                'note' => $request->note,
                 'user' => (Auth::user()->name),
             ]);
         } else {
+            return $request;
             $invoice->update([
                 'value_status' => 3,
                 'status' => $request->status,
@@ -260,8 +261,9 @@ class InvoiceController extends Controller
                 'section' => $request->section,
                 'status' => $request->status,
                 'value_status' => 3,
-                'note' => $request->note,
                 'payment_date' => $request->payment_date,
+                'ammount_paid' => $request->ammount_paid,
+                'note' => $request->note,
                 'user' => (Auth::user()->name),
             ]);
         }

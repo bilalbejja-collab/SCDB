@@ -124,7 +124,7 @@
                             <div class="col">
                                 <label for="note">Observaciones</label>
                                 <textarea class="form-control" id="note" name="note" rows="3" readonly>
-                                                                                    {{ $invoice->note }}</textarea>
+                                                                                        {{ $invoice->note }}</textarea>
                             </div>
                         </div><br>
 
@@ -143,16 +143,6 @@
                                 <input class="form-control fc-datepicker" name="payment_date" placeholder="YYYY-MM-DD"
                                     type="text" value="{{ date('Y-m-d') }}" required>
                             </div>
-
-                            <!--
-                                                                <div class="col">
-                                                                    <label>Cantidad a pagar</label>
-                                                                    <input class="form-control" name="ammount_paid"
-                                                                        placeholder="Solo en caso de 'pagar parcialmente'"
-                                                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                                                                        type="text" required>
-                                                                </div>
-                                                            -->
                         </div><br>
 
                         <div class="d-flex justify-content-center">
@@ -201,15 +191,18 @@
         function myFunction() {
             var x = document.getElementById("status").value;
             var objTo = document.getElementById('fila');
+
             var divtest = document.createElement("div");
             divtest.className = 'col';
+
             var labeltest = document.createElement("label");
-            labeltest.innerHTML = "Cantidad a pagar";
+            labeltest.innerHTML = "Cantidad pagada";
+
             var inputtest = document.createElement("input");
             inputtest.className = 'form-control';
             inputtest.id = 'ammount_paid';
             inputtest.name = 'ammount_paid';
-            inputtest.placeholder = "Ingrese la cantidad a pagar";
+            inputtest.placeholder = "Ingrese la cantidad pagada";
             inputtest.oninput = "this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');";
             inputtest.type = 'text';
             inputtest.required = true;
@@ -218,8 +211,9 @@
                 divtest.appendChild(labeltest);
                 divtest.appendChild(inputtest);
                 objTo.appendChild(divtest);
+            } else {
+                objTo.removeChild(objTo.lastElementChild);
             }
-
         }
 
     </script>
