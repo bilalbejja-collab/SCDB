@@ -24,54 +24,57 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // ------------------------Gráfico redondo----------------------
         $count_all = Invoice::count();
         $count_pagadas = Invoice::where('value_status', 1)->count();
         $count_no_pagadas = Invoice::where('value_status', 2)->count();
         $count_pagadas_parc = Invoice::where('value_status', 3)->count();
 
+        $pagadas_value = $count_no_pagadas == 0 ? 0 : number_format($count_pagadas / $count_all * 100, 2);
+        $no_pagadas_value = $count_no_pagadas == 0 ? 0 : number_format($count_no_pagadas / $count_all * 100, 2);
+        $pagadas_parc_value = $count_no_pagadas == 0 ? 0 : number_format($count_pagadas_parc / $count_all * 100, 2);
+
+        // -------------------------Gráfico de barras---------------------
+
         // Obtener los nombre de los bancos
         $sections = array(Section::select('name')->orderby('id')->pluck('name')->all())[0];
 
-        // % de las facturas pagadas
-        foreach ($sections as $key => $value) {
-            $key++;
-            $paid_vals[] = number_format(Invoice::where([['value_status', 1], ['section_id', $key]])->count()
-                / Invoice::where('section_id', $key > 0 ? 1 : 0)->count() * 100, 2);
+
+
+        // % de las facturas pagadas de todos los bancos
+        foreach (Section::all() as $key => $value) {
+            // si un determinado banco no tiene facturas meto 0
+            $count_all_per_section = Invoice::where('section_id', Section::all()[$key]->id)->count();
+            $paid_vals[] = $count_all_per_section == 0
+                ? 0
+                : number_format(Invoice::where([['value_status', 1], ['section_id', Section::all()[$key]->id]])->count()
+                    / $count_all_per_section * 100, 2);
         }
 
-        // % de las facturas no pagadas
+        // % de las facturas no pagadas de todos los bancos
         foreach ($sections as $key => $value) {
-            $key++;
-            $unpaid_vals[] = number_format(Invoice::where([['value_status', 2], ['section_id', $key]])->count()
-                / Invoice::where('section_id', $key > 0 ? 2 : 0)->count() * 100, 2);
+            // si un determinado banco no tiene facturas meto 0
+            $count_all_per_section = Invoice::where('section_id', Section::all()[$key]->id)->count();
+            $unpaid_vals[] = $count_all_per_section == 0
+                ? 0
+                : number_format(Invoice::where([['value_status', 2], ['section_id', Section::all()[$key]->id]])->count()
+                    / $count_all_per_section * 100, 2);
         }
 
-
-        // % de las facturas pagadas parcialmente
+        // % de las facturas pagadas parcialmente de todos los bancos
         foreach ($sections as $key => $value) {
-            $key++;
-            $parcial_paid_vals[] = number_format(Invoice::where([['value_status', 3], ['section_id', $key]])->count()
-                / Invoice::where('section_id', $key > 0 ? 1 : 0)->count() * 100, 2);
+            // si un determinado banco no tiene facturas meto 0
+            $count_all_per_section = Invoice::where('section_id', Section::all()[$key]->id)->count();
+            $parcial_paid_vals[] = $count_all_per_section == 0
+                ? 0
+                : number_format(Invoice::where([['value_status', 3], ['section_id', Section::all()[$key]->id]])->count()
+                    / $count_all_per_section * 100, 2);
         }
-
-        $nspainvoices1 = $count_no_pagadas == 0 ? 0 : number_format($count_pagadas / $count_all * 100, 2);
-        $nspainvoices2 = $count_no_pagadas == 0 ? 0 : number_format($count_no_pagadas / $count_all * 100, 2);
-        $nspainvoices3 = $count_no_pagadas == 0 ? 0 : number_format($count_pagadas_parc / $count_all * 100, 2);
 
         $chartjs = app()->chartjs
             ->name('barChartTest')
             ->type('bar')
             ->size(['width' => 400, 'height' => 200])
-            /*
-            ->labels(['Pagadas', 'No pagadas', 'Pagadas parcialmente'])
-            ->datasets([
-                [
-                    'backgroundColor' => ['#81b214', '#ec5858',  '#ff9642'],
-                    'data' => [$nspainvoices1, $nspainvoices2, $nspainvoices3]
-                ]
-            ])
-            ->options([]);
-*/
             ->labels($sections)
             ->datasets([
                 [
@@ -92,8 +95,6 @@ class HomeController extends Controller
             ])
             ->options([]);
 
-
-
         $chartjs_2 = app()->chartjs
             ->name('pieChartTest')
             ->type('doughnut')
@@ -102,7 +103,7 @@ class HomeController extends Controller
             ->datasets([
                 [
                     'backgroundColor' => ['#81b214', '#ec5858', '#ff9642'],
-                    'data' => [$nspainvoices1, $nspainvoices2, $nspainvoices3]
+                    'data' => [$pagadas_value, $no_pagadas_value, $pagadas_parc_value]
                 ]
             ])
             ->options([]);
