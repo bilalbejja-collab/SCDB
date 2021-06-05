@@ -13,8 +13,9 @@ class InvoicesDetails extends Model
         'section',
         'status',
         'value_status',
-        'note',
-        'user',
         'payment_date',
+        'ammount_paid',
+        'note',
+        'user'
     ];
 }

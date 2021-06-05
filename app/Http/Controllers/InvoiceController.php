@@ -222,6 +222,9 @@ class InvoiceController extends Controller
         return json_encode($products);
     }
 
+    /**
+     * Actualizar estado de pago de facturas
+     */
     public function statusUpdate($id, Request $request)
     {
         $invoice = Invoice::findOrFail($id);
@@ -246,10 +249,18 @@ class InvoiceController extends Controller
                 'user' => (Auth::user()->name),
             ]);
         } else {
-            return $request;
+            $request->validate([
+                'ammount_paid' => 'required|min:0|max:' . $invoice->total,
+            ], [
+                'ammount_paid.min' => 'La cantidad pagada debe ser mayor que cero.',
+                'ammount_paid.max' => 'La cantidad pagada debe ser menor que el total.',
+            ]);
+
             $invoice->update([
                 'value_status' => 3,
                 'status' => $request->status,
+                // actualizo el total
+                'total' => $invoice->total - $request->ammount_paid,
                 'payment_date' => $request->payment_date,
             ]);
 
@@ -267,6 +278,7 @@ class InvoiceController extends Controller
                 'user' => (Auth::user()->name),
             ]);
         }
+
         session()->flash('status_update');
         return redirect('/invoices');
     }

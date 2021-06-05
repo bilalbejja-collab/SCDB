@@ -17,6 +17,19 @@
     <!-- breadcrumb -->
 @endsection
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <!-- row -->
     <div class="row">
         <div class="col-lg-12 col-md-12">
@@ -124,7 +137,7 @@
                             <div class="col">
                                 <label for="note">Observaciones</label>
                                 <textarea class="form-control" id="note" name="note" rows="3" readonly>
-                                                                                        {{ $invoice->note }}</textarea>
+                                                                                                {{ $invoice->note }}</textarea>
                             </div>
                         </div><br>
 
@@ -188,6 +201,10 @@
     </script>
 
     <script>
+        /**
+         * Añade un input si pulsamos que queremos cambiar a pagada parcialmente
+         * Y lo borre si queremos cambiar a pagada
+         */
         function myFunction() {
             var x = document.getElementById("status").value;
             var objTo = document.getElementById('fila');
@@ -211,7 +228,7 @@
                 divtest.appendChild(labeltest);
                 divtest.appendChild(inputtest);
                 objTo.appendChild(divtest);
-            } else {
+            } else if (x == 'pagada' && document.getElementById("ammount_paid")) {
                 objTo.removeChild(objTo.lastElementChild);
             }
         }

@@ -197,8 +197,7 @@
                                                                     <td>{{ $detail->payment_date }}</td>
                                                                     <!-- En caso de pagada parcialmente -->
                                                                     @if ($invoice->value_status == 3)
-                                                                        <td>{{ $invoice->total - $detail->ammount_paid }}
-                                                                        </td>
+                                                                        <td>{{ $invoice->total }}</td>
                                                                     @endif
                                                                     <td>{{ $detail->note }}</td>
                                                                     <td>{{ $detail->created_at }}</td>
