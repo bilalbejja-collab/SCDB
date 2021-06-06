@@ -30,9 +30,9 @@ class HomeController extends Controller
         $count_no_pagadas = Invoice::where('value_status', 2)->count();
         $count_pagadas_parc = Invoice::where('value_status', 3)->count();
 
-        $pagadas_value = $count_no_pagadas == 0 ? 0 : number_format($count_pagadas / $count_all * 100, 2);
+        $pagadas_value = $count_pagadas == 0 ? 0 : number_format($count_pagadas / $count_all * 100, 2);
         $no_pagadas_value = $count_no_pagadas == 0 ? 0 : number_format($count_no_pagadas / $count_all * 100, 2);
-        $pagadas_parc_value = $count_no_pagadas == 0 ? 0 : number_format($count_pagadas_parc / $count_all * 100, 2);
+        $pagadas_parc_value = $count_pagadas_parc == 0 ? 0 : number_format($count_pagadas_parc / $count_all * 100, 2);
 
         // -------------------------Gráfico de barras---------------------
 
