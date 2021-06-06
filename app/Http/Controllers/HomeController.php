@@ -38,7 +38,7 @@ class HomeController extends Controller
 
         // Obtener los nombre de los bancos
         $sections = array(Section::select('name')->orderby('id')->pluck('name')->all())[0];
-
+        $paid_vals = $unpaid_vals = $parcial_paid_vals = [];
 
         // % de las facturas pagadas de todos los bancos
         foreach (Section::all() as $key => $value) {
