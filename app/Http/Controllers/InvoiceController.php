@@ -258,29 +258,8 @@ class InvoiceController extends Controller
                 'amount_paid.max' => 'La cantidad pagada debe ser menor que el total.',
             ]);
 
-            $invoice->update([
-                'value_status' => 3,
-                'status' => $request->status,
-                'payment_date' => $request->payment_date,
-            ]);
-            // Añadir nuevo detalle - pagada parcialmente
-            InvoicesDetails::create([
-                'invoice_id' => $request->invoice_id,
-                'invoice_number' => $request->invoice_number,
-                'product' => $request->product,
-                'section' => $request->section,
-                'status' => $request->status,
-                'value_status' => 3,
-                'payment_date' => $request->payment_date,
-                'remaining_amount' => $remaining_amount == null ?
-                    $invoice->total - $request->amount_paid :
-                    $remaining_amount - $request->amount_paid,
-                'note' => $request->note,
-                'user' => (Auth::user()->name),
-            ]);
-
             // si la cantidad restante es 0 cambia estado de factura a pagada
-            if ($remaining_amount == 0 && $remaining_amount != null) {
+            if ($remaining_amount - $request->amount_paid == 0 && $remaining_amount != null) {
 
                 $invoice->update([
                     'value_status' => 1,
@@ -293,15 +272,35 @@ class InvoiceController extends Controller
                     'product' => $request->product,
                     'section' => $request->section,
                     'status' => 'pagada',
-                    'value_status' => 2,
+                    'value_status' => 1,
                     'payment_date' => $request->payment_date,
                     'remaining_amount' => 0,
                     'note' => $request->note,
                     'user' => (Auth::user()->name),
                 ]);
+            } else {
+                $invoice->update([
+                    'value_status' => 3,
+                    'status' => $request->status,
+                    'payment_date' => $request->payment_date,
+                ]);
+                // Añadir nuevo detalle - pagada parcialmente
+                InvoicesDetails::create([
+                    'invoice_id' => $request->invoice_id,
+                    'invoice_number' => $request->invoice_number,
+                    'product' => $request->product,
+                    'section' => $request->section,
+                    'status' => $request->status,
+                    'value_status' => 3,
+                    'payment_date' => $request->payment_date,
+                    'remaining_amount' => $remaining_amount == null ?
+                        $invoice->total - $request->amount_paid :
+                        $remaining_amount - $request->amount_paid,
+                    'note' => $request->note,
+                    'user' => (Auth::user()->name),
+                ]);
             }
         }
-
         session()->flash('status_update');
         return redirect('/invoices');
     }
