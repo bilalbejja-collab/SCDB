@@ -259,7 +259,9 @@ class InvoiceController extends Controller
             ]);
 
             // si la cantidad restante es 0 cambia estado de factura a pagada
-            if ($remaining_amount - $request->amount_paid == 0 && $remaining_amount != null) {
+            if (($remaining_amount - $request->amount_paid == 0 && $remaining_amount != null)
+                || ($invoice->total - $request->amount_paid == 0 && $remaining_amount == null)
+            ) {
 
                 $invoice->update([
                     'value_status' => 1,
