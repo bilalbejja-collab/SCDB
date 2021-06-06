@@ -217,18 +217,18 @@
 
             var inputtest = document.createElement("input");
             inputtest.className = 'form-control';
-            inputtest.id = 'ammount_paid';
-            inputtest.name = 'ammount_paid';
+            inputtest.id = 'amount_paid';
+            inputtest.name = 'amount_paid';
             inputtest.placeholder = "Ingrese la cantidad pagada";
             inputtest.oninput = "this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');";
             inputtest.type = 'text';
             inputtest.required = true;
 
-            if (x == 'pagada parcialmente' && !document.getElementById("ammount_paid")) {
+            if (x == 'pagada parcialmente' && !document.getElementById("amount_paid")) {
                 divtest.appendChild(labeltest);
                 divtest.appendChild(inputtest);
                 objTo.appendChild(divtest);
-            } else if (x == 'pagada' && document.getElementById("ammount_paid")) {
+            } else if (x == 'pagada' && document.getElementById("amount_paid")) {
                 objTo.removeChild(objTo.lastElementChild);
             }
         }

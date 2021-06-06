@@ -40,7 +40,6 @@ class HomeController extends Controller
         $sections = array(Section::select('name')->orderby('id')->pluck('name')->all())[0];
 
 
-
         // % de las facturas pagadas de todos los bancos
         foreach (Section::all() as $key => $value) {
             // si un determinado banco no tiene facturas meto 0

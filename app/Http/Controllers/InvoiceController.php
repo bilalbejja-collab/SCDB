@@ -228,6 +228,8 @@ class InvoiceController extends Controller
     public function statusUpdate($id, Request $request)
     {
         $invoice = Invoice::findOrFail($id);
+        $details  = InvoicesDetails::where('invoice_id', $id)->get();
+        $remaining_amount = $details->last()->remaining_amount;
 
         if ($request->status === 'pagada') {
             $invoice->update([
@@ -250,20 +252,17 @@ class InvoiceController extends Controller
             ]);
         } else {
             $request->validate([
-                'ammount_paid' => 'required|min:0|max:' . $invoice->total,
+                'amount_paid' => 'required|min:0|max:' . $invoice->total,
             ], [
-                'ammount_paid.min' => 'La cantidad pagada debe ser mayor que cero.',
-                'ammount_paid.max' => 'La cantidad pagada debe ser menor que el total.',
+                'amount_paid.min' => 'La cantidad pagada debe ser mayor que cero.',
+                'amount_paid.max' => 'La cantidad pagada debe ser menor que el total.',
             ]);
 
             $invoice->update([
                 'value_status' => 3,
                 'status' => $request->status,
-                // actualizo el total
-                'total' => $invoice->total - $request->ammount_paid,
                 'payment_date' => $request->payment_date,
             ]);
-
             // Añadir nuevo detalle - pagada parcialmente
             InvoicesDetails::create([
                 'invoice_id' => $request->invoice_id,
@@ -273,10 +272,34 @@ class InvoiceController extends Controller
                 'status' => $request->status,
                 'value_status' => 3,
                 'payment_date' => $request->payment_date,
-                'ammount_paid' => $request->ammount_paid,
+                'remaining_amount' => $remaining_amount == null ?
+                    $invoice->total - $request->amount_paid :
+                    $remaining_amount - $request->amount_paid,
                 'note' => $request->note,
                 'user' => (Auth::user()->name),
             ]);
+
+            // si la cantidad restante es 0 cambia estado de factura a pagada
+            if ($remaining_amount == 0 && $remaining_amount != null) {
+
+                $invoice->update([
+                    'value_status' => 1,
+                    'status' => 'pagada',
+                ]);
+
+                InvoicesDetails::create([
+                    'invoice_id' => $request->invoice_id,
+                    'invoice_number' => $request->invoice_number,
+                    'product' => $request->product,
+                    'section' => $request->section,
+                    'status' => 'pagada',
+                    'value_status' => 2,
+                    'payment_date' => $request->payment_date,
+                    'remaining_amount' => 0,
+                    'note' => $request->note,
+                    'user' => (Auth::user()->name),
+                ]);
+            }
         }
 
         session()->flash('status_update');

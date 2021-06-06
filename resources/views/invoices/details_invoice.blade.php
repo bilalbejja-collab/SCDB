@@ -195,9 +195,9 @@
                                                                         </td>
                                                                     @endif
                                                                     <td>{{ $detail->payment_date }}</td>
-                                                                    <!-- En caso de pagada parcialmente -->
+                                                                    <!-- En caso de pagada parcialmente debe mostrar la cantidad restante por pagar-->
                                                                     @if ($invoice->value_status == 3)
-                                                                        <td>{{ $invoice->total }}</td>
+                                                                        <td>{{ $detail->remaining_amount }}</td>
                                                                     @endif
                                                                     <td>{{ $detail->note }}</td>
                                                                     <td>{{ $detail->created_at }}</td>
