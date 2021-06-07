@@ -221,7 +221,9 @@
             inputtest.name = 'amount_paid';
             inputtest.placeholder = "Ingrese la cantidad pagada";
             inputtest.oninput = "this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');";
-            inputtest.type = 'text';
+            inputtest.type = 'number';
+            inputtest.min = 0;
+            inputtest.max = "<?php echo $remaining_amount == null ? $invoice->total : $remaining_amount; ?>";
             inputtest.required = true;
 
             if (x == 'pagada parcialmente' && !document.getElementById("amount_paid")) {

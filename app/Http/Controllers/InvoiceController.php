@@ -128,7 +128,10 @@ class InvoiceController extends Controller
     public function show($id)
     {
         $invoice = Invoice::where('id', $id)->first();
-        return view('invoices.status_invoice', compact('invoice'));
+        $details  = InvoicesDetails::where('invoice_id', $id)->get();
+        $remaining_amount = $details->last()->remaining_amount;
+
+        return view('invoices.status_invoice', compact('invoice', 'remaining_amount'));
     }
 
     /**
