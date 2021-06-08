@@ -78,12 +78,12 @@ class HomeController extends Controller
             ->datasets([
                 [
                     "label" => "Pagadas",
-                    'backgroundColor' => '#81b214',
+                    'backgroundColor' => '#4aa96c',
                     'data' => $paid_vals
                 ],
                 [
                     "label" => "No pagadas",
-                    'backgroundColor' => '#ec5858',
+                    'backgroundColor' => '#f54748',
                     'data' => $unpaid_vals
                 ],
                 [
@@ -101,7 +101,7 @@ class HomeController extends Controller
             ->labels(['Facturas pagadas', 'Facturas no pagadas',  'Facturas pagadas parcialmente'])
             ->datasets([
                 [
-                    'backgroundColor' => ['#81b214', '#ec5858', '#ff9642'],
+                    'backgroundColor' => ['#4aa96c', '#f54748', '#ff9642'],
                     'data' => [$pagadas_value, $no_pagadas_value, $pagadas_parc_value]
                 ]
             ])

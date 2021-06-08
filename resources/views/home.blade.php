@@ -179,7 +179,7 @@
             <div class="card">
                 <div class="card-header bg-transparent pd-b-0 pd-t-20 bd-b-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mb-0">Porcentaje estadístico de facturas</h4>
+                        <h4 class="card-title mb-0">Porcentaje estadístico detallado de facturas por secciones</h4>
                     </div>
                 </div>
                 <div class="card-body" style="width: 100%">
@@ -189,7 +189,7 @@
         </div>
         <div class="col-lg-12 col-xl-5">
             <div class="card card-dashboard-map-one">
-                <label class="main-content-label">Porcentaje estadístico de facturas</label>
+                <label class="main-content-label">Porcentaje estadístico general de las facturas</label>
                 <div class="" style="width: 100%; margin-top: 20px;">
                     {!! $chartjs_2->render() !!}
                 </div>
