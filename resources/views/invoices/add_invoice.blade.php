@@ -72,14 +72,14 @@
 
                             <div class="col">
                                 <label>Fecha de inicio</label>
-                                <input class="form-control fc-datepicker" name="date" placeholder="YYYY-MM-DD" type="text"
-                                    value="{{ date('Y-m-d') }}" required>
+                                <input class="form-control" name="date" id="date" type="date" value="{{ date('Y-m-d') }}"
+                                    required>
                             </div>
 
                             <div class="col">
                                 <label>Fecha de vencimiento</label>
-                                <input class="form-control fc-datepicker" name="due_date" placeholder="YYYY-MM-DD"
-                                    type="text" required>
+                                <input class="form-control" name="due_date" id="due_date" placeholder="YYYY-MM-DD"
+                                    type="date" required>
                             </div>
                         </div>
 
@@ -215,13 +215,15 @@
 
     <script>
         /**
-         * Asigna la fecha de hoy como fecha inicial a la factura
+         * Actualiza la fecha mínima fin como la inicial 
          */
-        var date = $('.fc-datepicker').datepicker({
-            dateFormat: 'yy-mm-dd'
-        }).val();
+        setInterval(function() {
+            document.getElementById('due_date').min = document.getElementById('date').value;
+        }, 1000);
 
     </script>
+
+
 
     <script>
         /**

@@ -77,8 +77,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="example1" class="table key-buttons text-md-nowrap" data-page-length='50'
-                        style="text-align: center">
+                    <table id="example1" class="table key-buttons text-md-nowrap text-center" data-page-length='50'>
                         <thead>
                             <tr>
                                 <th class="border-bottom-0">#</th>
@@ -88,26 +87,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $i = 0; ?>
-                            @foreach ($sections as $section)
-                                <?php $i++; ?>
-                                <tr>
-                                    <td>{{ $i }}</td>
-                                    <td>{{ $section->name }}</td>
-                                    <td>{{ $section->description }}</td>
-                                    <td>
-                                        <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
-                                            data-id="{{ $section->id }}" data-name="{{ $section->name }}"
-                                            data-description="{{ $section->description }}" data-toggle="modal"
-                                            href="#edit_section" title="modificar"><i class="las la-pen"></i></a>
+                            @if (count($sections) > 0)
+                                <?php $i = 0; ?>
+                                @foreach ($sections as $section)
+                                    <?php $i++; ?>
+                                    <tr>
+                                        <td>{{ $i }}</td>
+                                        <td>{{ $section->name }}</td>
+                                        <td>{{ $section->description }}</td>
+                                        <td>
+                                            <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
+                                                data-id="{{ $section->id }}" data-name="{{ $section->name }}"
+                                                data-description="{{ $section->description }}" data-toggle="modal"
+                                                href="#edit_section" title="modificar"><i class="las la-pen"></i></a>
 
-                                        <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                            data-id="{{ $section->id }}" data-name="{{ $section->name }}"
-                                            data-toggle="modal" href="#delete_section" title="eliminar"><i
-                                                class="las la-trash"></i></a>
-                                    </td>
-                                </tr>
-                            @endforeach
+                                            <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
+                                                data-id="{{ $section->id }}" data-name="{{ $section->name }}"
+                                                data-toggle="modal" href="#delete_section" title="eliminar"><i
+                                                    class="las la-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <td colspan="4" class="text-center">No hay niguna sección</td>
+                            @endif
                         </tbody>
                     </table>
                 </div>

@@ -136,8 +136,8 @@
                         <div class="row">
                             <div class="col">
                                 <label for="note">Observaciones</label>
-                                <textarea class="form-control" id="note" name="note" rows="3" readonly>
-                                                                                                {{ $invoice->note }}</textarea>
+                                <textarea class="form-control" id="note" name="note" rows="3"
+                                    readonly>{{ $invoice->note }}</textarea>
                             </div>
                         </div><br>
 
@@ -153,8 +153,8 @@
 
                             <div class="col">
                                 <label>Fecha de pago</label>
-                                <input class="form-control fc-datepicker" name="payment_date" placeholder="YYYY-MM-DD"
-                                    type="text" value="{{ date('Y-m-d') }}" required>
+                                <input class="form-control" name="payment_date" type="date"
+                                    value="{{ date('Y-m-d') }}" min="{{ $invoice->date }}" max="{{ $invoice->due_date }}" required>
                             </div>
                         </div><br>
 
@@ -209,27 +209,28 @@
             var x = document.getElementById("status").value;
             var objTo = document.getElementById('fila');
 
-            var divtest = document.createElement("div");
-            divtest.className = 'col';
+            var div = document.createElement("div");
+            div.className = 'col';
 
-            var labeltest = document.createElement("label");
-            labeltest.innerHTML = "Cantidad pagada";
+            var label = document.createElement("label");
+            label.innerHTML = "Cantidad pagada";
 
-            var inputtest = document.createElement("input");
-            inputtest.className = 'form-control';
-            inputtest.id = 'amount_paid';
-            inputtest.name = 'amount_paid';
-            inputtest.placeholder = "Ingrese la cantidad pagada";
-            inputtest.oninput = "this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');";
-            inputtest.type = 'number';
-            inputtest.min = 0;
-            inputtest.max = "<?php echo $remaining_amount == null ? $invoice->total : $remaining_amount; ?>";
-            inputtest.required = true;
+            var input = document.createElement("input");
+            input.className = 'form-control';
+            input.id = 'amount_paid';
+            input.name = 'amount_paid';
+            input.placeholder = "Ingrese la cantidad pagada";
+            input.oninput = "this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');";
+            input.type = 'number';
+            input.min = 0;
+            input.max =
+                "<?php echo $remaining_amount == null ? $invoice->total : $remaining_amount; ?>";
+            input.required = true;
 
             if (x == 'pagada parcialmente' && !document.getElementById("amount_paid")) {
-                divtest.appendChild(labeltest);
-                divtest.appendChild(inputtest);
-                objTo.appendChild(divtest);
+                div.appendChild(label);
+                div.appendChild(input);
+                objTo.appendChild(div);
             } else if (x == 'pagada' && document.getElementById("amount_paid")) {
                 objTo.removeChild(objTo.lastElementChild);
             }

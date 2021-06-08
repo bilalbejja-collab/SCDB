@@ -75,7 +75,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table mg-b-0 text-md-nowrap table-hover ">
+                    <table class="table mg-b-0 text-md-nowrap table-hover text-center">
                         <thead>
                             <tr>
                                 <th>#</th>

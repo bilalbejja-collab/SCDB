@@ -254,23 +254,16 @@ class InvoiceController extends Controller
                 'user' => (Auth::user()->name),
             ]);
         } else {
-            $request->validate([
-                'amount_paid' => 'required|min:0|max:' . $invoice->total,
-            ], [
-                'amount_paid.min' => 'La cantidad pagada debe ser mayor que cero.',
-                'amount_paid.max' => 'La cantidad pagada debe ser menor que el total.',
-            ]);
-
             // si la cantidad restante es 0 cambia estado de factura a pagada
             if (($remaining_amount - $request->amount_paid == 0 && $remaining_amount != null)
                 || ($invoice->total - $request->amount_paid == 0 && $remaining_amount == null)
             ) {
-
+                // Actualizo el estado de la factura en la tablal principal
                 $invoice->update([
                     'value_status' => 1,
                     'status' => 'pagada',
                 ]);
-
+                // Añadir nuevo detalle - pagada
                 InvoicesDetails::create([
                     'invoice_id' => $request->invoice_id,
                     'invoice_number' => $request->invoice_number,

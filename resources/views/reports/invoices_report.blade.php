@@ -122,7 +122,7 @@
             <div class="card-body">
                 <div class="table-responsive">
                     @if (isset($details))
-                        <table id="example" class="table key-buttons text-md-nowrap" style=" text-align: center">
+                        <table id="example" class="table key-buttons text-md-nowrap table-striped table-bordered" style=" text-align: center">
                             <thead>
                                 <tr>
                                     <th class="border-bottom-0">#</th>
@@ -140,37 +140,41 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $i = 0; ?>
-                                @foreach ($details as $invoice)
-                                    <?php $i++; ?>
-                                    <tr>
-                                        <td>{{ $i }}</td>
-                                        <td>
-                                            <a href="{{ url('invoices-details') }}/{{ $invoice->id }}">
-                                                {{ $invoice->number }} </a>
-                                        </td>
-                                        <td>{{ $invoice->date }}</td>
-                                        <td>{{ $invoice->due_date }}</td>
-                                        <td>{{ $invoice->product }}</td>
-                                        <td>{{ $invoice->section->name }}</td>
-                                        <td>{{ $invoice->discount }}</td>
-                                        <td>{{ $invoice->rate_vat }}</td>
-                                        <td>{{ $invoice->value_vat }}</td>
-                                        <td>{{ $invoice->total }}</td>
-                                        <td>
-                                            @if ($invoice->value_status == 1)
-                                                <span class="text-success">{{ $invoice->status }}</span>
-                                            @elseif($invoice->value_status == 2)
-                                                <span class="text-danger">{{ $invoice->status }}</span>
-                                            @else
-                                                <span class="text-warning">{{ $invoice->status }}</span>
-                                            @endif
+                                @if (count($details) > 0)
+                                    <?php $i = 0; ?>
+                                    @foreach ($details as $invoice)
+                                        <?php $i++; ?>
+                                        <tr>
+                                            <td>{{ $i }}</td>
+                                            <td>
+                                                <a href="{{ url('invoices-details') }}/{{ $invoice->id }}">
+                                                    {{ $invoice->number }} </a>
+                                            </td>
+                                            <td>{{ $invoice->date }}</td>
+                                            <td>{{ $invoice->due_date }}</td>
+                                            <td>{{ $invoice->product }}</td>
+                                            <td>{{ $invoice->section->name }}</td>
+                                            <td>{{ $invoice->discount }}</td>
+                                            <td>{{ $invoice->rate_vat }}</td>
+                                            <td>{{ $invoice->value_vat }}</td>
+                                            <td>{{ $invoice->total }}</td>
+                                            <td>
+                                                @if ($invoice->value_status == 1)
+                                                    <span class="text-success">{{ $invoice->status }}</span>
+                                                @elseif($invoice->value_status == 2)
+                                                    <span class="text-danger">{{ $invoice->status }}</span>
+                                                @else
+                                                    <span class="text-warning">{{ $invoice->status }}</span>
+                                                @endif
 
-                                        </td>
+                                            </td>
 
-                                        <td>{{ $invoice->note }}</td>
-                                    </tr>
-                                @endforeach
+                                            <td>{{ $invoice->note }}</td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <td colspan="12" class="text-center">No hay facturas</td>
+                                @endif
                             </tbody>
                         </table>
                     @endif

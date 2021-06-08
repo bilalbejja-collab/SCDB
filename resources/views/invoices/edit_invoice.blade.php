@@ -70,15 +70,13 @@
                             </div>
 
                             <div class="col">
-                                <label>Fecha de la factura</label>
-                                <input class="form-control fc-datepicker" name="date" placeholder="YYYY-MM-DD" type="text"
-                                    value="{{ $invoice->date }}" required>
+                                <label>Fecha de inicio</label>
+                                <input class="form-control" name="date" id="date" type="date" value="{{ $invoice->date }}" required>
                             </div>
 
                             <div class="col">
                                 <label>Fecha de vencimiento</label>
-                                <input class="form-control fc-datepicker" name="due_date" placeholder="YYYY-MM-DD"
-                                    type="text" value="{{ $invoice->due_date }}" required>
+                                <input class="form-control" name="due_date" id="due_date" type="date" value="{{ $invoice->due_date }}" required>
                             </div>
 
                         </div>
@@ -121,15 +119,15 @@
                         <div class="row">
                             <div class="col">
                                 <label for="amount_commission" class="control-label">Monto de la comisión</label>
-                                <input type="text" class="form-control form-control-lg" id="amount_commission"
-                                    name="amount_commission" title="Ingrese el monto de la comisión"
+                                <input type="text" class="form-control" id="amount_commission" name="amount_commission"
+                                    title="Ingrese el monto de la comisión"
                                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                     value="{{ $invoice->amount_commission }}" required>
                             </div>
 
                             <div class="col">
                                 <label for="discount" class="control-label">Descuento</label>
-                                <input type="text" class="form-control form-control-lg" id="discount" name="discount"
+                                <input type="text" class="form-control" id="discount" name="discount"
                                     title="Ingrese el monto del descuento"
                                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                     value="{{ $invoice->discount }}" required>
@@ -171,8 +169,8 @@
                         <div class="row">
                             <div class="col">
                                 <label for="note">Observaciones</label>
-                                <textarea class="form-control" id="note" name="note" rows="3">
-                                                                        {{ $invoice->note }}</textarea>
+                                <textarea class="form-control" id="note" name="note"
+                                    rows="3">{{ $invoice->note }}</textarea>
                             </div>
                         </div><br>
 
@@ -221,11 +219,11 @@
 
     <script>
         /**
-         * Asigna la fecha de hoy como fecha inicial a la factura
+         * Actualiza la fecha mínima fin como la inicial
          */
-        var date = $('.fc-datepicker').datepicker({
-            dateFormat: 'yy-mm-dd'
-        }).val();
+        setInterval(function() {
+            document.getElementById('due_date').min = document.getElementById('date').value;
+        }, 1000);
 
     </script>
 

@@ -81,7 +81,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="example1" class="table key-buttons text-md-nowrap" data-page-length='50'>
+                        <table id="example1" class="table key-buttons text-md-nowrap text-center" data-page-length='50'>
                             <thead>
                                 <tr>
                                     <th class="border-bottom-0">#</th>
@@ -93,30 +93,33 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $i = 0; ?>
-                                @foreach ($products as $product)
-                                    <?php $i++; ?>
-                                    <tr>
-                                        <td>{{ $i }}</td>
-                                        <td>{{ $product->name }}</td>
-                                        <td>{{ $product->section->name }}</td>
-                                        <td>{{ $product->description }}</td>
-                                        <td>
-                                            <button class="btn btn-outline-success btn-sm"
-                                                data-product_name="{{ $product->name }}"
-                                                data-product_id="{{ $product->id }}"
-                                                data-product_name="{{ $product->section->name }}"
-                                                data-description="{{ $product->description }}" data-toggle="modal"
-                                                data-target="#edit_product">Modificar</button>
+                                @if (count($products) > 0)
+                                    <?php $i = 0; ?>
+                                    @foreach ($products as $product)
+                                        <?php $i++; ?>
+                                        <tr>
+                                            <td>{{ $i }}</td>
+                                            <td>{{ $product->name }}</td>
+                                            <td>{{ $product->section->name }}</td>
+                                            <td>{{ $product->description }}</td>
+                                            <td>
+                                                <button class="btn btn-outline-success btn-sm"
+                                                    data-product_name="{{ $product->name }}"
+                                                    data-product_id="{{ $product->id }}"
+                                                    data-product_name="{{ $product->section->name }}"
+                                                    data-description="{{ $product->description }}" data-toggle="modal"
+                                                    data-target="#edit_product">Modificar</button>
 
-                                            <button class="btn btn-outline-danger btn-sm "
-                                                data-product_id="{{ $product->id }}"
-                                                data-product_name="{{ $product->name }}" data-toggle="modal"
-                                                data-target="#delete_product">Eliminar</button>
-
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                                <button class="btn btn-outline-danger btn-sm "
+                                                    data-product_id="{{ $product->id }}"
+                                                    data-product_name="{{ $product->name }}" data-toggle="modal"
+                                                    data-target="#delete_product">Eliminar</button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <td colspan="4" class="text-center">No hay nigún producto</td>
+                                @endif
                             </tbody>
                         </table>
                     </div>

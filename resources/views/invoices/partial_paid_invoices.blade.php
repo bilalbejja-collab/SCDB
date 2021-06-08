@@ -86,75 +86,79 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php
-                                    $i = 0;
-                                @endphp
-                                @foreach ($invoices as $invoice)
+                                @if (count($invoices) > 0)
                                     @php
-                                        $i++;
+                                        $i = 0;
                                     @endphp
-                                    <tr>
-                                        <td>{{ $i }}</td>
-                                        <td>
-                                            <a href="{{ url('invoices-details') }}/{{ $invoice->id }}">
-                                                {{ $invoice->number }} </a>
-                                        </td>
-                                        <td>{{ $invoice->date }}</td>
-                                        <td>{{ $invoice->due_date }}</td>
-                                        <td>{{ $invoice->product }}</td>
-                                        <td>{{ $invoice->section->name }}</td>
-                                        <td>{{ $invoice->discount }}</td>
-                                        <td>{{ $invoice->rate_vat }}</td>
-                                        <td>{{ $invoice->value_vat }}</td>
-                                        <td>{{ $invoice->total }}</td>
-                                        <td>
-                                            @if ($invoice->value_status == 1)
-                                                <span class="text-success">{{ $invoice->status }}</span>
-                                            @elseif($invoice->value_status == 2)
-                                                <span class="text-danger">{{ $invoice->status }}</span>
-                                            @else
-                                                <span class="text-warning">{{ $invoice->status }}</span>
-                                            @endif
-                                        </td>
+                                    @foreach ($invoices as $invoice)
+                                        @php
+                                            $i++;
+                                        @endphp
+                                        <tr>
+                                            <td>{{ $i }}</td>
+                                            <td>
+                                                <a href="{{ url('invoices-details') }}/{{ $invoice->id }}">
+                                                    {{ $invoice->number }} </a>
+                                            </td>
+                                            <td>{{ $invoice->date }}</td>
+                                            <td>{{ $invoice->due_date }}</td>
+                                            <td>{{ $invoice->product }}</td>
+                                            <td>{{ $invoice->section->name }}</td>
+                                            <td>{{ $invoice->discount }}</td>
+                                            <td>{{ $invoice->rate_vat }}</td>
+                                            <td>{{ $invoice->value_vat }}</td>
+                                            <td>{{ $invoice->total }}</td>
+                                            <td>
+                                                @if ($invoice->value_status == 1)
+                                                    <span class="text-success">{{ $invoice->status }}</span>
+                                                @elseif($invoice->value_status == 2)
+                                                    <span class="text-danger">{{ $invoice->status }}</span>
+                                                @else
+                                                    <span class="text-warning">{{ $invoice->status }}</span>
+                                                @endif
+                                            </td>
 
-                                        <td>{{ $invoice->note }}</td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button aria-expanded="false" aria-haspopup="true"
-                                                    class="btn ripple btn-primary btn-sm" data-toggle="dropdown"
-                                                    type="button">Procesos<i class="fas fa-caret-down ml-1"></i></button>
-                                                <div class="dropdown-menu tx-13">
-                                                    <a class="dropdown-item"
-                                                        href=" {{ url('edit-invoice') }}/{{ $invoice->id }}">
-                                                        <i class="text-info fas fa-edit"></i>
-                                                        &nbsp;&nbsp;Modificar la factura
-                                                    </a>
+                                            <td>{{ $invoice->note }}</td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button aria-expanded="false" aria-haspopup="true"
+                                                        class="btn ripple btn-primary btn-sm" data-toggle="dropdown"
+                                                        type="button">Procesos<i
+                                                            class="fas fa-caret-down ml-1"></i></button>
+                                                    <div class="dropdown-menu tx-13">
+                                                        <a class="dropdown-item"
+                                                            href=" {{ url('edit-invoice') }}/{{ $invoice->id }}">
+                                                            <i class="text-info fas fa-edit"></i>
+                                                            &nbsp;&nbsp;Modificar la factura
+                                                        </a>
 
-                                                    <a class="dropdown-item" href="#"
-                                                        data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
-                                                        data-target="#delete_invoice">
-                                                        <i class="text-danger fas fa-trash-alt"></i>
-                                                        &nbsp;&nbsp;Borrar la factura</a>
+                                                        <a class="dropdown-item" href="#"
+                                                            data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
+                                                            data-target="#delete_invoice">
+                                                            <i class="text-danger fas fa-trash-alt"></i>
+                                                            &nbsp;&nbsp;Borrar la factura</a>
 
-                                                    <a class="dropdown-item"
-                                                        href="{{ URL::route('status-show', [$invoice->id]) }}">
-                                                        <i class=" text-success fas fa-money-bill"></i>
-                                                        &nbsp;&nbsp;Cambiar estado de pago</a>
+                                                        <a class="dropdown-item"
+                                                            href="{{ URL::route('status-show', [$invoice->id]) }}">
+                                                            <i class=" text-success fas fa-money-bill"></i>
+                                                            &nbsp;&nbsp;Cambiar estado de pago</a>
 
-                                                    <a class="dropdown-item" href="#"
-                                                        data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
-                                                        data-target="#transfer_invoice">
-                                                        <i class="text-warning fas fa-exchange-alt"></i>
-                                                        &nbsp;&nbsp;Transferir al archivo
-                                                    </a>
+                                                        <a class="dropdown-item" href="#"
+                                                            data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
+                                                            data-target="#transfer_invoice">
+                                                            <i class="text-warning fas fa-exchange-alt"></i>
+                                                            &nbsp;&nbsp;Transferir al archivo
+                                                        </a>
 
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                        </td>
-                                    </tr>
-                                @endforeach
-
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <td colspan="13" class="text-center">No hay niguna factura pagada parcialmente</td>
+                                @endif
                             </tbody>
                         </table>
                     </div>
