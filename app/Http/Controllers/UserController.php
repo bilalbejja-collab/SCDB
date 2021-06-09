@@ -144,7 +144,7 @@ class UserController extends Controller
         $user = User::first();
         Notification::route('mail', 'scdb.billsotf@gmail.com')
             ->notify(new ContactUs($request->subject, $request->message));
-        session()->flash('Sended', 'Se envió tu mensaje correctamente');
+        session()->flash('Sended', 'Tu mensaje se envió correctamente');
         return back();
     }
 }
