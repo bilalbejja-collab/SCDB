@@ -43,8 +43,9 @@ class ContactUs extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->from(Auth::user()->email, Auth::user()->name)
+            ->greeting('Hola!')
             ->subject($this->subject)
-            ->line($this->message);
+            ->line("Enviado por: " . Auth::user()->name)
+            ->line("Mensaje: " . $this->message);
     }
 }

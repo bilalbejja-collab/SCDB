@@ -142,8 +142,8 @@ class UserController extends Controller
     public function contactUs(Request $request)
     {
         $user = User::first();
-        Notification::send($user, new ContactUs($request->subject, $request->message));
-
+        Notification::route('mail', 'scdb.billsotf@gmail.com')
+            ->notify(new ContactUs($request->subject, $request->message));
         session()->flash('Sended', 'Se envió tu mensaje correctamente');
         return back();
     }
