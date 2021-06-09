@@ -28,14 +28,14 @@ class InvoicesExport implements WithDrawings, FromCollection, WithHeadings
     public function headings(): array
     {
         return [
-            '#',
+            'ID',
             'NÚMERO',
             'FECHA',
             'F. VENCIMIENTO',
             'PRODUCTO',
             'SECCIÓN',
-            'RECAUDACIÓN DE CANTIDAD',
-            'CANTIDAD COMISION',
+            'A RECAUDAR',
+            'COMISION',
             'DISCUENTO',
             'VALOR IVA',
             'IVA',
@@ -55,6 +55,7 @@ class InvoicesExport implements WithDrawings, FromCollection, WithHeadings
      */
     public function collection()
     {
-        return Invoice::all();
+        // devuelve las facturas ordenadas por estado de pago
+        return Invoice::all()->sortBy("value_status");;
     }
 }

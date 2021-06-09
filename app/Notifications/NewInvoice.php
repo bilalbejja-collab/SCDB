@@ -24,7 +24,7 @@ class NewInvoice extends Notification
     }
 
     /**
-     * Get the notification's delivery channels.
+     * Mandar la notificación a la base de datos y al email
      *
      * @param  mixed  $notifiable
      * @return array

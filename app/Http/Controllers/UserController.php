@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Notifications\ContactUs;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 
 class UserController extends Controller
 {
@@ -64,7 +66,7 @@ class UserController extends Controller
         $user = User::create($input);
         $user->assignRole($request->input('roles_name'));
         return redirect()->route('users.index')
-            ->with('success', 'Se agregó el usuario con éxito');
+            ->with('Success', 'Se agregó el usuario con éxito');
     }
 
     /**
@@ -119,7 +121,7 @@ class UserController extends Controller
         DB::table('model_has_roles')->where('model_id', $id)->delete();
         $user->assignRole($request->input('roles_name'));
         return redirect()->route('users.index')
-            ->with('success', 'Se ha actualizado la información del usuario con éxito');
+            ->with('Success', 'Se ha actualizado la información del usuario con éxito');
     }
 
     /**
@@ -132,5 +134,17 @@ class UserController extends Controller
     {
         User::find($request->user_id)->delete();
         return redirect()->route('users.index')->with('success', 'Se eliminó el usuario con éxito');
+    }
+
+    /**
+     * Mandar un mensaje al email principal
+     */
+    public function contactUs(Request $request)
+    {
+        $user = User::first();
+        Notification::send($user, new ContactUs($request->subject, $request->message));
+
+        session()->flash('Sended', 'Se envió tu mensaje correctamente');
+        return back();
     }
 }

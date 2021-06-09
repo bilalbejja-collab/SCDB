@@ -6,7 +6,6 @@ use App\Exports\InvoicesExport;
 use App\Invoice;
 use App\InvoicesAttachments;
 use App\InvoicesDetails;
-use App\Notifications\AddInvoice;
 use App\Notifications\NewInvoice;
 use App\Section;
 use App\User;

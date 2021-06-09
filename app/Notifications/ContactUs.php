@@ -3,22 +3,24 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Auth;
 
-class AddInvoice extends Notification
+class ContactUs extends Notification
 {
     use Queueable;
-    private $invoice_id;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($invoice_id)
+    public function __construct($subject, $message)
     {
-        $this->invoice_id = $invoice_id;
+        $this->subject = $subject;
+        $this->message = $message;
     }
 
     /**
@@ -40,15 +42,9 @@ class AddInvoice extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = 'http://app-scdb.herokuapp.com/invoices-details/' . $this->invoice_id;
-        // en local
-        // $url = 'http://127.0.0.1:8000/invoices-details/' . $this->invoice_id;
-
         return (new MailMessage)
-            ->greeting('Hola!')
-            ->subject('NUEVA FACTURA!')
-            ->line('Se añadió nueva factura')
-            ->action('Mostrar la factura', $url)
-            ->line('Gracias por usar SCDB para administrar sus facturas');
+            ->from(Auth::user()->email, Auth::user()->name)
+            ->subject($this->subject)
+            ->line($this->message);
     }
 }
