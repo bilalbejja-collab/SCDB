@@ -14,10 +14,13 @@
     <div class="main-sidemenu">
         <div class="app-sidebar__user clearfix">
             <div class="dropdown user-pro-body">
-                <div class="">
+                <div>
                     <img alt="user-img" class="avatar avatar-xl brround"
-                        src="{{ URL::asset('assets/img/faces/avatar.jpg') }}"><span
-                        class="avatar-status profile-status bg-green"></span>
+                        src="{{ URL::asset('assets/img/faces/avatar.jpg') }}">
+
+                        <span class="avatar-status profile-status bg-green"></span>
+
+                        
                 </div>
                 <div class="user-info">
                     <h4 class="font-weight-semibold mt-3 mb-0">{{ Auth::user()->name }}</h4>
