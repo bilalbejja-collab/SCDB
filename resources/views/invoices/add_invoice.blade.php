@@ -215,7 +215,7 @@
 
     <script>
         /**
-         * Actualiza la fecha mínima fin como la inicial 
+         * Actualiza la fecha mínima fin como la inicial
          */
         setInterval(function() {
             document.getElementById('due_date').min = document.getElementById('date').value;
@@ -227,7 +227,7 @@
 
     <script>
         /**
-         * Cuando de seleciona una sección se extraen automáticamente sus productos
+         * Cuando se seleciona una sección se extraen automáticamente sus productos
          */
         $(document).ready(function() {
             $('select[name="section"]').on('change', function() {

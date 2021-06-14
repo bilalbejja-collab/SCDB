@@ -30,9 +30,9 @@
 
 @section('content')
 
-@if (session('success'))
+@if (session('Success'))
     <div class="alert alert-success">
-        {{ session('success') }}
+        {{ session('Success') }}
     </div>
 @endif
 

@@ -347,7 +347,7 @@ class InvoiceController extends Controller
     }
 
     /**
-     * Establece leidas todas las notidicaciones
+     * Establece leidas todas las notificaciones
      */
     public function markAsReadAll(Request $request)
     {
