@@ -133,7 +133,7 @@ class UserController extends Controller
     public function destroy(Request $request)
     {
         User::find($request->user_id)->delete();
-        return redirect()->route('users.index')->with('success', 'Se eliminó el usuario con éxito');
+        return redirect()->route('users.index')->with('Success', 'Se eliminó el usuario con éxito');
     }
 
     /**
