@@ -34,7 +34,7 @@
     </script>
 @endif
 
-@if (session()->has('edit'))
+@if (session()->has('Edit'))
     <script>
         window.onload = function() {
             notif({
@@ -46,7 +46,7 @@
     </script>
 @endif
 
-@if (session()->has('delete'))
+@if (session()->has('Delete'))
     <script>
         window.onload = function() {
             notif({
